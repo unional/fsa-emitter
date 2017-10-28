@@ -1,5 +1,5 @@
 {
-  "name": "fsa-eventemitter",
+  "name": "fsa-emitter",
   "version": "0.1.0",
   "description": "Emitter using Flux Standard Action",
   "main": "dist-es5/index.js",
@@ -29,7 +29,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/unional/fsa-eventemitter.git"
+    "url": "git+https://github.com/unional/fsa-emitter.git"
   },
   "keywords": [
     "typescript",
@@ -43,9 +43,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/unional/fsa-eventemitter/issues"
+    "url": "https://github.com/unional/fsa-emitter/issues"
   },
-  "homepage": "https://github.com/unional/fsa-eventemitter#readme",
+  "homepage": "https://github.com/unional/fsa-emitter#readme",
   "ava": {
     "files": [
       "dist-es5/**/*.spec.js"
