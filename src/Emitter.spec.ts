@@ -1,10 +1,10 @@
 import test from 'ava'
 
-import { actionCreator, Emitter } from './index'
+import { createActionCreator, Emitter } from './index'
 
 test('listener(action) is typed', t => {
   const emitter = new Emitter()
-  const count = actionCreator<number>('count')
+  const count = createActionCreator<number>('count')
 
   emitter.addListener(count, action => {
     // action is of type FSA<number, undefined>
@@ -16,7 +16,7 @@ test('listener(action) is typed', t => {
 
 test('support Error action', t => {
   const emitter = new Emitter()
-  const error = actionCreator<Error>('error')
+  const error = createActionCreator<Error>('error')
   emitter.addListener(error, action => {
     t.is(action.payload.message, 'abc')
   })
@@ -26,7 +26,7 @@ test('support Error action', t => {
 
 test('onceListener will listen once', t => {
   const emitter = new Emitter()
-  const count = actionCreator<number>('count')
+  const count = createActionCreator<number>('count')
 
   t.plan(1)
   emitter.once(count, action => {

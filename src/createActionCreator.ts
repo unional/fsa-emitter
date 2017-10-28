@@ -6,7 +6,7 @@ export interface ActionCreator<Payload, Meta> {
   match(action: FSA<any, any>): action is FSA<Payload, Meta>
 }
 
-export function actionCreator<Payload = undefined, Meta = undefined>(type): ActionCreator<Payload, Meta> {
+export function createActionCreator<Payload = undefined, Meta = undefined>(type): ActionCreator<Payload, Meta> {
   return Object.assign(
     (payload: Payload, meta: Meta) => {
       return payload instanceof Error ?
