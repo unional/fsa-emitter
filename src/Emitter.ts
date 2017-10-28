@@ -14,6 +14,9 @@ export class Emitter {
   addListener<Payload, Meta>(actionCreator: ActionCreator<Payload, Meta>, listener: (action: FSA<Payload, Meta>) => void): EventSubscription {
     return this.emitter.addListener(actionCreator.type, listener)
   }
+  on<Payload, Meta>(actionCreator: ActionCreator<Payload, Meta>, listener: (action: FSA<Payload, Meta>) => void): EventSubscription {
+    return this.addListener(actionCreator, listener)
+  }
   once<Payload, Meta>(actionCreator: ActionCreator<Payload, Meta>, listener: (action: FSA<Payload, Meta>) => void): EventSubscription {
     return this.emitter.once(actionCreator.type, listener)
   }
