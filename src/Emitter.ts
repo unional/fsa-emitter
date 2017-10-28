@@ -1,7 +1,7 @@
 import { FSA } from 'flux-standard-action'
 import { EventEmitter, EventSubscription } from 'fbemitter'
 
-import { ActionCreator } from './actionCreator';
+import { ActionCreator } from './createActionCreator'
 
 export class Emitter {
   private emitter: EventEmitter

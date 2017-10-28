@@ -1,2 +1,2 @@
-export * from './actionCreator'
+export * from './createActionCreator'
 export * from './Emitter'
