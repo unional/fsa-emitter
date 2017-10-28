@@ -6,10 +6,12 @@ export interface ActionCreator<Payload, Meta> {
   match(action: FSA<any, any>): action is FSA<Payload, Meta>
 }
 
-export function createActionCreator<Payload = undefined, Meta = undefined>(type): ActionCreator<Payload, Meta> {
+function defaultIsError(payload) { return payload instanceof Error }
+
+export function createActionCreator<Payload = undefined, Meta = undefined>(type, isError: ((payload: Payload) => boolean) | boolean = defaultIsError): ActionCreator<Payload, Meta> {
   return Object.assign(
     (payload: Payload, meta: Meta) => {
-      return payload instanceof Error ?
+      return isError && (typeof isError === 'boolean' || isError(payload)) ?
         { type, payload, meta, error: true } :
         { type, payload, meta }
     },
