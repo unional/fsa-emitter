@@ -8,16 +8,16 @@ export class Emitter {
   constructor() {
     this.emitter = new EventEmitter()
   }
-  emit<Payload, Meta>(action: FSA<Payload, Meta>) {
-    return this.emitter.emit(action.type as string, action)
+  emit<Payload, Meta>({ type, payload, meta, error }: FSA<Payload, Meta>) {
+    return this.emitter.emit(type as string, payload, meta, error)
   }
-  addListener<Payload, Meta>(actionCreator: ActionCreator<Payload, Meta>, listener: (action: FSA<Payload, Meta>) => void): EventSubscription {
+  addListener<Payload, Meta>(actionCreator: ActionCreator<Payload, Meta>, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
     return this.emitter.addListener(actionCreator.type, listener)
   }
-  on<Payload, Meta>(actionCreator: ActionCreator<Payload, Meta>, listener: (action: FSA<Payload, Meta>) => void): EventSubscription {
+  on<Payload, Meta>(actionCreator: ActionCreator<Payload, Meta>, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
     return this.addListener(actionCreator, listener)
   }
-  once<Payload, Meta>(actionCreator: ActionCreator<Payload, Meta>, listener: (action: FSA<Payload, Meta>) => void): EventSubscription {
+  once<Payload, Meta>(actionCreator: ActionCreator<Payload, Meta>, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
     return this.emitter.once(actionCreator.type, listener)
   }
 }
