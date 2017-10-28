@@ -20,3 +20,5 @@ export function createActionCreator<Payload = undefined, Meta = undefined>(type)
       }
     })
 }
+
+export { createActionCreator as createAction }
