@@ -64,7 +64,7 @@ test('emit with meta gets meta in second param', t => {
   emitter.emit(count(2, { version: 3 }))
 })
 
-test('listener throws error should not affect code', t => {
+test(`error thwon in listener should not affect emitting code. An error action is emitted to capture the error so it will not be lost.`, t => {
   const emitter = new Emitter()
   const count = createActionCreator<number>('count')
 
