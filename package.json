@@ -1,7 +1,7 @@
 {
-  "name": "unpartial",
-  "version": "0.3.0",
-  "description": "Unpartial a partialed object",
+  "name": "fsa-eventemitter",
+  "version": "0.0.0",
+  "description": "Emitter using Flux Standard Action",
   "main": "dist-es5/index.js",
   "module": "dist-es2015/index.js",
   "typings": "dist-es5/index.d.ts",
@@ -16,7 +16,7 @@
     "clean": "rimraf dist-es5 dist-es2015",
     "dc": "npm run dependency-check",
     "dependency-check": "dependency-check . --unused --no-dev && dependency-check . --missing --no-dev",
-    "lint": "tslint -p tsconfig.json --type-check \"src/**/*.ts\"",
+    "lint": "tslint -p tsconfig.json \"src/**/*.ts\"",
     "prepare": "npm run build",
     "postpublish": "git push",
     "preversion": "git pull && npm run verify",
@@ -29,7 +29,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/unional/unpartial.git"
+    "url": "git+https://github.com/unional/fsa-eventemitter.git"
   },
   "keywords": [
     "typescript",
@@ -43,9 +43,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/unional/unpartial/issues"
+    "url": "https://github.com/unional/fsa-eventemitter/issues"
   },
-  "homepage": "https://github.com/unional/unpartial#readme",
+  "homepage": "https://github.com/unional/fsa-eventemitter#readme",
   "ava": {
     "files": [
       "dist-es5/**/*.spec.js"
@@ -70,11 +70,11 @@
     "flux-standard-action": "^1.2.0"
   },
   "devDependencies": {
-    "ava": "^0.22.0",
+    "ava": "^0.23.0",
     "dependency-check": "^2.9.1",
     "nyc": "^11.2.1",
     "rimraf": "^2.6.2",
-    "tslint": "^5.7.0",
+    "tslint": "^5.8.0",
     "tslint-config-unional": "^0.8.0",
     "typescript": "^2.5.3"
   }
