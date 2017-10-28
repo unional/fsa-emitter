@@ -1,6 +1,6 @@
 import test from 'ava'
 
-import { createActionCreator, Emitter } from './index'
+import { createActionCreator, Emitter, errorAction } from './index'
 
 test('addListener(): listener(payload) is typed', t => {
   const emitter = new Emitter()
@@ -62,4 +62,27 @@ test('emit with meta gets meta in second param', t => {
 
   emitter.emit(count(1, { version: 3 }))
   emitter.emit(count(2, { version: 3 }))
+})
+
+test('listener throws error should not affect code', t => {
+  const emitter = new Emitter()
+  const count = createActionCreator<number>('count')
+
+  function noThrow() {
+    try {
+      emitter.emit(count(1, undefined))
+    }
+    catch {
+      t.fail('should not throw')
+    }
+  }
+
+  emitter.on(count, () => { throw new Error('thrown') })
+
+  emitter.on(errorAction, err => {
+    t.is(err.message, 'thrown')
+  })
+
+  noThrow()
+
 })
