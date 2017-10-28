@@ -9,10 +9,9 @@ export interface ActionCreator<Payload, Meta> {
 export function actionCreator<Payload = undefined, Meta = undefined>(type): ActionCreator<Payload, Meta> {
   return Object.assign(
     (payload: Payload, meta: Meta) => {
-      if (payload instanceof Error)
-        return { type, payload, meta, error: true }
-
-      return { type, payload, meta }
+      return payload instanceof Error ?
+        { type, payload, meta, error: true } :
+        { type, payload, meta }
     },
     {
       type,

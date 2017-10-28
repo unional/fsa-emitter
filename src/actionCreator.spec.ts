@@ -1,7 +1,7 @@
 import { test } from 'ava'
 import { isFSA, isError, FSA } from 'flux-standard-action'
 
-import { actionCreator } from './actionCreator'
+import { actionCreator } from './index'
 
 test('empty actionCreator creates FSA compliant action', t => {
   const blip = actionCreator('blip')
