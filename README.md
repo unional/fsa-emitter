@@ -1,4 +1,4 @@
-# FSA-EventEmitter
+# FSA-Emitter
 
 [![unstable][unstable-image]][unstable-url]
 [![NPM version][npm-image]][npm-url]
@@ -23,9 +23,9 @@ and provides provides IDE type support so they can be consumed easily.
 ## Usage
 
 ```ts
-import { actionCreator, Emitter } from 'fsa-eventemitter'
+import { createActionCreator, Emitter } from 'fsa-emitter'
 
-const count = actionCreator<number>('count')
+const count = createActionCreator<number>('count')
 
 const emitter = new Emitter()
 emitter.addListener(count, action => {
@@ -48,11 +48,11 @@ npm run watch
 
 [unstable-image]: http://badges.github.io/stability-badges/dist/unstable.svg
 [unstable-url]: http://github.com/badges/stability-badges
-[npm-image]: https://img.shields.io/npm/v/fsa-eventemitter.svg?style=flat
-[npm-url]: https://npmjs.org/package/fsa-eventemitter
-[downloads-image]: https://img.shields.io/npm/dm/fsa-eventemitter.svg?style=flat
-[downloads-url]: https://npmjs.org/package/fsa-eventemitter
-[travis-image]: https://img.shields.io/travis/unional/fsa-eventemitter.svg?style=flat
-[travis-url]: https://travis-ci.org/unional/fsa-eventemitter
-[coveralls-image]: https://coveralls.io/repos/github/unional/fsa-eventemitter/badge.svg
-[coveralls-url]: https://coveralls.io/github/unional/fsa-eventemitter
+[npm-image]: https://img.shields.io/npm/v/fsa-emitter.svg?style=flat
+[npm-url]: https://npmjs.org/package/fsa-emitter
+[downloads-image]: https://img.shields.io/npm/dm/fsa-emitter.svg?style=flat
+[downloads-url]: https://npmjs.org/package/fsa-emitter
+[travis-image]: https://img.shields.io/travis/unional/fsa-emitter.svg?style=flat
+[travis-url]: https://travis-ci.org/unional/fsa-emitter
+[coveralls-image]: https://coveralls.io/repos/github/unional/fsa-emitter/badge.svg
+[coveralls-url]: https://coveralls.io/github/unional/fsa-emitter
