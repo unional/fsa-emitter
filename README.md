@@ -12,14 +12,13 @@ EventEmitter in FSA style.
 When dealing with event, I find myself need to remember the name of the event,
 and the parameters each event has.
 
-The event emitter and the event consumer can be a completely different person.
+The person who defines the events and the person who consumes the events can be two different person.
 
 This implicit knowledge coupling relies on communication and documentation that are prone to error,
 and are not convenient.
 
-This library will address that by emitting and consuming events using a standard format,
-and provides a mechanism to make the event typed.
-
+This library addresses this issue by emitting and consuming events using a standard format,
+and provides provides IDE type support so they can be consumed easily.
 
 ## Contribute
 
