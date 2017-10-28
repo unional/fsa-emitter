@@ -1,4 +1,4 @@
-# fsa-eventemitter
+# FSA-EventEmitter
 
 [![unstable][unstable-image]][unstable-url]
 [![NPM version][npm-image]][npm-url]
@@ -19,6 +19,21 @@ and are not convenient.
 
 This library addresses this issue by emitting and consuming events using a standard format,
 and provides provides IDE type support so they can be consumed easily.
+
+## Usage
+
+```ts
+import { actionCreator, Emitter } from 'fsa-eventemitter'
+
+const count = actionCreator<number>('count')
+
+const emitter = new Emitter()
+emitter.addListener(count, action => {
+  console.log('payload is typed and is a number: ', action.payload)
+})
+
+emitter.emit(count(1))
+```
 
 ## Contribute
 
