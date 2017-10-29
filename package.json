@@ -70,6 +70,7 @@
     "flux-standard-action": "^1.2.0"
   },
   "devDependencies": {
+    "@types/node": "^8.0.47",
     "ava": "^0.23.0",
     "dependency-check": "^2.9.1",
     "nyc": "^11.2.1",

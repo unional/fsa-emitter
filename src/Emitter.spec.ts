@@ -64,7 +64,7 @@ test('emit with meta gets meta in second param', t => {
   emitter.emit(count(2, { version: 3 }))
 })
 
-test(`error thwon in listener should not affect emitting code. An error action is emitted to capture the error so it will not be lost.`, t => {
+test(`error thrown in listener should not affect emitting code. An error action is emitted to capture the error so it will not be lost.`, t => {
   const emitter = new Emitter()
   const count = createActionCreator<number>('count')
 
@@ -84,5 +84,28 @@ test(`error thwon in listener should not affect emitting code. An error action i
   })
 
   noThrow()
+})
 
+test('error thrown in errorAction handler should not cause call stack overflow', t => {
+  const emitter = new Emitter()
+  const count = createActionCreator<number>('count')
+
+  function noThrow() {
+    try {
+      emitter.emit(count(1, undefined))
+    }
+    catch {
+      t.fail('should not throw')
+    }
+  }
+
+  emitter.on(count, () => { throw new Error('thrown') })
+
+  // errorAction should not throw, it should be handled differently.
+  emitter.on(errorAction, () => {
+    throw new Error('thrown in errorAction listener')
+  })
+
+  noThrow()
+  t.pass()
 })
