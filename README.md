@@ -23,16 +23,26 @@ and provides provides IDE type support so they can be consumed easily.
 ## Usage
 
 ```ts
+// count.ts
 import { createActionCreator, Emitter } from 'fsa-emitter'
 
-const count = createActionCreator<number>('count')
+export const count = createActionCreator<number>('count')
 
-const emitter = new Emitter()
+// app.ts
+export const emitter = new Emitter()
+
+// logic.ts
+import { emitter } from './app'
+import { count } from './count'
+emitter.emit(count(1))
+
+// in UI
+import { emitter } from './app'
+import { count } from './count'
 emitter.addListener(count, action => {
   console.log('payload is typed and is a number: ', action.payload)
 })
 
-emitter.emit(count(1))
 ```
 
 ## Contribute
