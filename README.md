@@ -62,7 +62,7 @@ npm run watch
 [npm-url]: https://npmjs.org/package/fsa-emitter
 [downloads-image]: https://img.shields.io/npm/dm/fsa-emitter.svg?style=flat
 [downloads-url]: https://npmjs.org/package/fsa-emitter
-[travis-image]: https://img.shields.io/travis/unional/fsa-emitter.svg?style=flat
-[travis-url]: https://travis-ci.org/unional/fsa-emitter
+[travis-image]: https://img.shields.io/travis/unional/fsa-emitter/master.svg?style=flat
+[travis-url]: https://travis-ci.org/unional/fsa-emitter?branch=master
 [coveralls-image]: https://coveralls.io/repos/github/unional/fsa-emitter/badge.svg
 [coveralls-url]: https://coveralls.io/github/unional/fsa-emitter
