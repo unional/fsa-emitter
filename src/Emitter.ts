@@ -1,9 +1,9 @@
 import { FSA } from 'flux-standard-action'
 import { EventEmitter, EventSubscription } from 'fbemitter'
 
-import { ActionCreator, createActionCreator } from './createActionCreator'
+import { Event, createEvent } from './createEvent'
 
-export const errorAction = createActionCreator<Error>('fsa-emitter/error')
+export const errorEvent = createEvent<Error>('fsa-emitter/error')
 
 export class Emitter {
   private emitter: EventEmitter
@@ -13,8 +13,8 @@ export class Emitter {
   emit<Payload, Meta>({ type, payload, meta, error }: FSA<Payload, Meta>) {
     return this.emitter.emit(type as string, payload, meta, error)
   }
-  addListener<Payload, Meta>(actionCreator: ActionCreator<Payload, Meta>, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
-    if (actionCreator.type === errorAction.type)
+  addListener<Payload, Meta>(actionCreator: Event<Payload, Meta>, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
+    if (actionCreator.type === errorEvent.type)
       return this.addErrorActionListener(listener)
 
     const wrappedListener = (payload, meta, error) => {
@@ -22,15 +22,15 @@ export class Emitter {
         listener(payload, meta, error)
       }
       catch (err) {
-        this.emit(errorAction(err, undefined))
+        this.emit(errorEvent(err, undefined))
       }
     }
     return this.emitter.addListener(actionCreator.type, wrappedListener)
   }
-  on<Payload, Meta>(actionCreator: ActionCreator<Payload, Meta>, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
+  on<Payload, Meta>(actionCreator: Event<Payload, Meta>, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
     return this.addListener(actionCreator, listener)
   }
-  once<Payload, Meta>(actionCreator: ActionCreator<Payload, Meta>, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
+  once<Payload, Meta>(actionCreator: Event<Payload, Meta>, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
     return this.emitter.once(actionCreator.type, listener)
   }
 
@@ -43,6 +43,6 @@ export class Emitter {
         console.error('Error thrown in error action handler:', err)
       }
     }
-    return this.emitter.addListener(errorAction.type, wrappedListener)
+    return this.emitter.addListener(errorEvent.type, wrappedListener)
   }
 }

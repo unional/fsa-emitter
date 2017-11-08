@@ -1,10 +1,10 @@
 import test from 'ava'
 
-import { createActionCreator, Emitter, errorAction } from './index'
+import { createEvent, Emitter, errorEvent } from './index'
 
 test('addListener(): listener(payload) is typed', t => {
   const emitter = new Emitter()
-  const count = createActionCreator<number>('count')
+  const count = createEvent<number>('count')
 
   emitter.addListener(count, payload => {
     // payload: number
@@ -16,7 +16,7 @@ test('addListener(): listener(payload) is typed', t => {
 
 test('on()', t => {
   const emitter = new Emitter()
-  const count = createActionCreator<number>('count')
+  const count = createEvent<number>('count')
 
   emitter.on(count, payload => {
     // payload: number
@@ -28,7 +28,7 @@ test('on()', t => {
 
 test('support Error action', t => {
   const emitter = new Emitter()
-  const error = createActionCreator<Error>('error')
+  const error = createEvent<Error>('error')
   emitter.addListener(error, ({ message }, _meta, error) => {
     t.is(message, 'abc')
     t.true(error)
@@ -39,7 +39,7 @@ test('support Error action', t => {
 
 test('onceListener will listen once', t => {
   const emitter = new Emitter()
-  const count = createActionCreator<number>('count')
+  const count = createEvent<number>('count')
 
   t.plan(1)
   emitter.once(count, payload => {
@@ -52,7 +52,7 @@ test('onceListener will listen once', t => {
 
 test('emit with meta gets meta in second param', t => {
   const emitter = new Emitter()
-  const count = createActionCreator<number, { version: number }>('count')
+  const count = createEvent<number, { version: number }>('count')
 
   t.plan(2)
   emitter.once(count, (payload, meta) => {
@@ -66,7 +66,7 @@ test('emit with meta gets meta in second param', t => {
 
 test(`error thrown in listener should not affect emitting code. An error action is emitted to capture the error so it will not be lost.`, t => {
   const emitter = new Emitter()
-  const count = createActionCreator<number>('count')
+  const count = createEvent<number>('count')
 
   function noThrow() {
     try {
@@ -79,7 +79,7 @@ test(`error thrown in listener should not affect emitting code. An error action 
 
   emitter.on(count, () => { throw new Error('thrown') })
 
-  emitter.on(errorAction, err => {
+  emitter.on(errorEvent, err => {
     t.is(err.message, 'thrown')
   })
 
@@ -88,7 +88,7 @@ test(`error thrown in listener should not affect emitting code. An error action 
 
 test('error thrown in errorAction handler should not cause call stack overflow', t => {
   const emitter = new Emitter()
-  const count = createActionCreator<number>('count')
+  const count = createEvent<number>('count')
 
   function noThrow() {
     try {
@@ -102,7 +102,7 @@ test('error thrown in errorAction handler should not cause call stack overflow',
   emitter.on(count, () => { throw new Error('thrown') })
 
   // errorAction should not throw, it should be handled differently.
-  emitter.on(errorAction, () => {
+  emitter.on(errorEvent, () => {
     throw new Error('thrown in errorAction listener')
   })
 
