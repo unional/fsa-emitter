@@ -13,9 +13,11 @@ export class Emitter {
   emit<Payload, Meta>({ type, payload, meta, error }: FSA<Payload, Meta>) {
     return this.emitter.emit(type as string, payload, meta, error)
   }
-  addListener<Payload, Meta>(actionCreator: Event<Payload, Meta>, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
+  addListener<Payload, Meta>(
+    actionCreator: Event<Payload, Meta>,
+    listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
     if (actionCreator.type === errorEvent.type)
-      return this.addErrorActionListener(listener)
+      return this.addErrorEventListener(listener)
 
     const wrappedListener = (payload, meta, error) => {
       try {
@@ -34,13 +36,13 @@ export class Emitter {
     return this.emitter.once(actionCreator.type, listener)
   }
 
-  private addErrorActionListener<Payload, Meta>(listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
+  private addErrorEventListener<Payload, Meta>(listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
     const wrappedListener = (payload, meta, error) => {
       try {
         listener(payload, meta, error)
       }
       catch (err) {
-        console.error('Error thrown in error action handler:', err)
+        console.error('Error thrown in error event handler:', err)
       }
     }
     return this.emitter.addListener(errorEvent.type, wrappedListener)

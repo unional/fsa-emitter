@@ -1,9 +1,9 @@
 import { test } from 'ava'
 import { isFSA, isError, FSA } from 'flux-standard-action'
 
-import { createEvent } from './index'
+import { createEvent, createScopedCreateEventFunction } from './index'
 
-test('empty actionCreator creates FSA compliant action', t => {
+test('empty eventCreator creates FSA compliant action', t => {
   const blip = createEvent('blip')
 
   // want undefined parameters optional
@@ -11,12 +11,12 @@ test('empty actionCreator creates FSA compliant action', t => {
   t.true(isFSA(blip(undefined, undefined)))
 })
 
-test('actionCreator with payload creates FSA compliant action', t => {
+test('eventCreator with payload creates FSA compliant action', t => {
   const count = createEvent<number>('count')
   t.true(isFSA(count(1, undefined)))
 })
 
-test('actionCreator with payload and meta creates FSA compliant action', t => {
+test('eventCreator with payload and meta creates FSA compliant action', t => {
   const withMeta = createEvent<number, string>('withMeta')
   t.true(isFSA(withMeta(2, 'abc')))
 })
@@ -45,4 +45,11 @@ test('match should type guard an action', t => {
     // `payload.a` is properly typed as `string`
     t.is(action.payload.a, 'a')
   }
+})
+
+test('createScopedCreateEventFunction will create <scope>/X event', t => {
+  const createScope = createScopedCreateEventFunction('a')
+  const ab = createScope('x')
+  t.is(ab.type, 'a/x')
+  t.true(isFSA(ab(undefined, undefined)))
 })
