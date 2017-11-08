@@ -109,3 +109,25 @@ test('error thrown in errorAction handler should not cause call stack overflow',
   noThrow()
   t.pass()
 })
+
+test('listen using type string', t => {
+  const emitter = new Emitter()
+  const count = createEvent<number>('count')
+  const minus = createEvent<number>('minus')
+  const multiply = createEvent<{ a: number, b: number, result: number }>('multiply')
+  emitter.on(count.type, (value) => {
+    t.is(value, 1)
+  })
+  emitter.addListener(minus.type, (value) => {
+    t.is(value, 2)
+  })
+  emitter.once(multiply.type, ({ a, b, result }) => {
+    t.is(a, 2)
+    t.is(b, 3)
+    t.is(result, 6)
+  })
+
+  emitter.emit(count(1, undefined))
+  emitter.emit(minus(2, undefined))
+  emitter.emit(multiply({ a: 2, b: 3, result: 6 }, undefined))
+})
