@@ -24,9 +24,9 @@ and provides provides IDE type support so they can be consumed easily.
 
 ```ts
 // count.ts
-import { createActionCreator, Emitter } from 'fsa-emitter'
+import { createEvent, Emitter } from 'fsa-emitter'
 
-export const count = createActionCreator<number>('count')
+export const count = createEvent<number>('count')
 
 // app.ts
 export const emitter = new Emitter()
@@ -39,8 +39,8 @@ emitter.emit(count(1))
 // in UI
 import { emitter } from './app'
 import { count } from './count'
-emitter.addListener(count, action => {
-  console.log('payload is typed and is a number: ', action.payload)
+emitter.addListener(count, (payload) => {
+  console.log('payload is typed and is a number: ', payload)
 })
 
 ```
