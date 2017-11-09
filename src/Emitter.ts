@@ -14,9 +14,10 @@ export class Emitter {
     return this.emitter.emit(type as string, payload, meta, error)
   }
   addListener<Payload, Meta>(
-    actionCreator: Event<Payload, Meta>,
+    actionCreator: Event<Payload, Meta> | string,
     listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
-    if (actionCreator.type === errorEvent.type)
+    const type = typeof actionCreator === 'string' ? actionCreator : actionCreator.type
+    if (type === errorEvent.type)
       return this.addErrorEventListener(listener)
 
     const wrappedListener = (payload, meta, error) => {
@@ -27,13 +28,14 @@ export class Emitter {
         this.emit(errorEvent(err, undefined))
       }
     }
-    return this.emitter.addListener(actionCreator.type, wrappedListener)
+    return this.emitter.addListener(type, wrappedListener)
   }
-  on<Payload, Meta>(actionCreator: Event<Payload, Meta>, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
+  on<Payload, Meta>(actionCreator: Event<Payload, Meta> | string, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
     return this.addListener(actionCreator, listener)
   }
-  once<Payload, Meta>(actionCreator: Event<Payload, Meta>, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
-    return this.emitter.once(actionCreator.type, listener)
+  once<Payload, Meta>(actionCreator: Event<Payload, Meta> | string, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
+    const type = typeof actionCreator === 'string' ? actionCreator : actionCreator.type
+    return this.emitter.once(type, listener)
   }
 
   private addErrorEventListener<Payload, Meta>(listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
