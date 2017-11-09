@@ -1,6 +1,6 @@
 {
   "name": "fsa-emitter",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Emitter using Flux Standard Action",
   "main": "dist-es5/index.js",
   "module": "dist-es2015/index.js",
