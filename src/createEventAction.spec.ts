@@ -46,3 +46,10 @@ test('create scoped createEventAction()', t => {
   const minus = cva('minus', () => () => { return })
   t.is(minus.type, 'a/minus')
 })
+
+test('match should type guard an action', t => {
+  const noop = createEventAction('noop', () => () => { return })
+  const event = { type: 'noop', payload: undefined, meta: undefined }
+
+  t.true(noop.match(event))
+})
