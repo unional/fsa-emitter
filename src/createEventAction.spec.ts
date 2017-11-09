@@ -15,7 +15,7 @@ test('no input', t => {
   noInput(emitter, undefined, undefined)
 })
 
-test('no emit' t => {
+test('no emit', t => {
   const noEmit = createEventAction('noEmit', () => () => { return })
   const emitter = new Emitter()
   emitter.on(noEmit, () => {
