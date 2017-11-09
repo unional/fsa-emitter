@@ -22,6 +22,10 @@ and provides provides IDE type support so they can be consumed easily.
 
 ## Usage
 
+### createEvent<Payload, Meta>(type: string): Event<Payload, Meta>
+
+Creates an event.
+
 ```ts
 // count.ts
 import { createEvent, Emitter } from 'fsa-emitter'
@@ -43,6 +47,34 @@ emitter.addListener(count, (payload) => {
   console.log('payload is typed and is a number: ', payload)
 })
 
+```
+
+### createScopedCreateEvent(scope: string): <Payload, Meta>(subType: string) => Event<Payload, Meta>
+
+Create scoped events
+
+```ts
+import { createScopedCreateEvent } from 'fsa-emitter'
+
+const createEvent = createScopedCreateEvent('scope')
+
+const count = createEvent<number>('count')
+
+count.type // `scope/count`
+```
+
+### createEventAction<Input, Payload, Meta>(type: string, action: (input: Input) => emit => void): EventAction<Input, Payload, Meta>
+
+Create an event action.
+
+```ts
+import { createEventAction, Emitter } from 'fsa-emitter'
+
+const add = createEventAction<{ a: number, b: number }, { a: number, b: number, result: number }>('add', ({ a, b }) => emit => emit({ a, b, result: a + b }))
+
+const emitter = new Emitter()
+
+add(emitter, { a: 1, b: 2 }, undefined)
 ```
 
 ## Contribute
