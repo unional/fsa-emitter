@@ -1,9 +1,12 @@
 import { FSA } from 'flux-standard-action'
 
-export interface Event<Payload, Meta> {
-  (payload: Payload, meta: Meta): FSA<Payload, Meta>
-  type: string,
+export interface TypedEvent<Payload, Meta> {
+  type: string
   match(action: FSA<any, any>): action is FSA<Payload, Meta>
+}
+
+export interface Event<Payload, Meta> extends TypedEvent<Payload, Meta> {
+  (payload: Payload, meta: Meta): FSA<Payload, Meta>
 }
 
 function defaultIsErrorPredicate(payload) { return payload instanceof Error }

@@ -1,9 +1,8 @@
 import { FSA } from 'flux-standard-action'
 import { EventEmitter, EventSubscription } from 'fbemitter'
 
-import { Event, createEvent } from './createEvent'
-
-export const errorEvent = createEvent<Error>('fsa-emitter/error')
+import { TypedEvent } from './createEvent'
+import { errorEvent } from './errorEvent'
 
 export class Emitter {
   private emitter: EventEmitter
@@ -14,7 +13,7 @@ export class Emitter {
     return this.emitter.emit(type as string, payload, meta, error)
   }
   addListener<Payload, Meta>(
-    actionCreator: Event<Payload, Meta> | string,
+    actionCreator: TypedEvent<Payload, Meta> | string,
     listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
     const type = typeof actionCreator === 'string' ? actionCreator : actionCreator.type
     if (type === errorEvent.type)
@@ -30,10 +29,10 @@ export class Emitter {
     }
     return this.emitter.addListener(type, wrappedListener)
   }
-  on<Payload, Meta>(actionCreator: Event<Payload, Meta> | string, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
+  on<Payload, Meta>(actionCreator: TypedEvent<Payload, Meta> | string, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
     return this.addListener(actionCreator, listener)
   }
-  once<Payload, Meta>(actionCreator: Event<Payload, Meta> | string, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
+  once<Payload, Meta>(actionCreator: TypedEvent<Payload, Meta> | string, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
     const type = typeof actionCreator === 'string' ? actionCreator : actionCreator.type
     return this.emitter.once(type, listener)
   }
