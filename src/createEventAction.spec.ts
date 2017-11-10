@@ -53,3 +53,16 @@ test('match should type guard an action', t => {
 
   t.true(noop.match(event))
 })
+
+// test('compose actions', t => {
+//   const add = createEventAction<{ a: number, b: number }, { c: number }>('add', ({ a, b }) => emit => emit({ c: a + b }))
+
+//   const multiply = createEventAction<{ a: number, b: number }>('multiply', ({ a, b }) => emitter => {
+//     if (a === 1)
+
+//       add(emitter, undefined, undefined)
+//   })
+
+//   const emitter = new Emitter()
+//   multiply(emitter, { a: 3, b: 3 }, undefined)
+// })
