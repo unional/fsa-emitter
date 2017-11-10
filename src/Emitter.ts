@@ -12,10 +12,11 @@ export class Emitter {
   emit<Payload, Meta>({ type, payload, meta, error }: FSA<Payload, Meta>) {
     return this.emitter.emit(type as string, payload, meta, error)
   }
+
   addListener<Payload, Meta>(
-    actionCreator: TypedEvent<Payload, Meta> | string,
+    event: TypedEvent<Payload, Meta> | string,
     listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
-    const type = typeof actionCreator === 'string' ? actionCreator : actionCreator.type
+    const type = typeof event === 'string' ? event : event.type
     if (type === errorEvent.type)
       return this.addErrorEventListener(listener)
 

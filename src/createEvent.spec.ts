@@ -1,7 +1,7 @@
 import { test } from 'ava'
 import { isFSA, isError, FSA } from 'flux-standard-action'
 
-import { createEvent, createScopedCreateEventFunction } from './index'
+import { createEvent, createScopedCreateEvent } from './index'
 
 test('empty eventCreator creates FSA compliant action', t => {
   const blip = createEvent('blip')
@@ -48,7 +48,7 @@ test('match should type guard an action', t => {
 })
 
 test('createScopedCreateEventFunction will create <scope>/X event', t => {
-  const createScope = createScopedCreateEventFunction('a')
+  const createScope = createScopedCreateEvent('a')
   const ab = createScope('x')
   t.is(ab.type, 'a/x')
   t.true(isFSA(ab(undefined, undefined)))

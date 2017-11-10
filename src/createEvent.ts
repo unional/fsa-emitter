@@ -11,7 +11,7 @@ export interface Event<Payload, Meta> extends TypedEvent<Payload, Meta> {
 
 function defaultIsErrorPredicate(payload) { return payload instanceof Error }
 
-export function createScopedCreateEventFunction(scope: string): typeof createEvent {
+export function createScopedCreateEvent(scope: string): typeof createEvent {
   return (type) => createEvent(`${scope}/${type}`)
 }
 
