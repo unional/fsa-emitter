@@ -2,7 +2,7 @@ import { FSA } from 'flux-standard-action'
 
 export interface TypedEvent<Payload, Meta> {
   type: string
-  match(action: FSA<any, any>): action is FSA<Payload, Meta>
+  match(event: FSA<any, any>): event is FSA<Payload, Meta>
 }
 
 export interface Event<Payload, Meta> extends TypedEvent<Payload, Meta> {
@@ -24,8 +24,8 @@ export function createEvent<Payload = undefined, Meta = undefined>(type: string,
     },
     {
       type,
-      match(action): action is FSA<Payload, Meta> {
-        return action.type === type
+      match(event): event is FSA<Payload, Meta> {
+        return event.type === type
       }
     })
 }

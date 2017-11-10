@@ -30,11 +30,11 @@ export class Emitter {
     }
     return this.emitter.addListener(type, wrappedListener)
   }
-  on<Payload, Meta>(actionCreator: TypedEvent<Payload, Meta> | string, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
-    return this.addListener(actionCreator, listener)
+  on<Payload, Meta>(event: TypedEvent<Payload, Meta> | string, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
+    return this.addListener(event, listener)
   }
-  once<Payload, Meta>(actionCreator: TypedEvent<Payload, Meta> | string, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
-    const type = typeof actionCreator === 'string' ? actionCreator : actionCreator.type
+  once<Payload, Meta>(event: TypedEvent<Payload, Meta> | string, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
+    const type = typeof event === 'string' ? event : event.type
     return this.emitter.once(type, listener)
   }
 
