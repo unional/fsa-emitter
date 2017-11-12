@@ -1,6 +1,6 @@
 import test from 'ava'
 
-import { createEvent, Emitter, errorEvent } from './index'
+import { createEvent, Emitter, errorEvent, createEventAction } from './index'
 
 test('addListener(): listener(payload) is typed', t => {
   const emitter = new Emitter()
@@ -88,11 +88,11 @@ test(`error thrown in listener should not affect emitting code. An error action 
 
 test('error thrown in errorAction handler should not cause call stack overflow', t => {
   const emitter = new Emitter()
-  const count = createEvent<number>('count')
+  const count = createEventAction<number, number>('count', input => emit => emit(input + 1))
 
   function noThrow() {
     try {
-      emitter.emit(count(1, undefined))
+      count(emitter, 1, undefined)
     }
     catch {
       t.fail('should not throw')

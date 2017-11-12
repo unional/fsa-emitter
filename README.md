@@ -22,6 +22,9 @@ and provides provides IDE type support so they can be consumed easily.
 
 ## Usage
 
+`Emitter` will capture any error thrown in listener and send it to `console.error()`.
+This is because the listener are UI code and any error thrown in there should not affact logic.
+
 ### createEvent<Payload, Meta>(type: string): Event<Payload, Meta>
 
 Creates an event.
@@ -76,6 +79,11 @@ const emitter = new Emitter()
 
 add(emitter, { a: 1, b: 2 }, undefined)
 ```
+
+### TestEmitter
+
+Same as `Emitter` but it will not capture error thrown in listeners.
+`TestEmitter` can be used during testing to make your test easier to write.
 
 ## Contribute
 

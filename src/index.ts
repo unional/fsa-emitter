@@ -2,11 +2,13 @@ export * from './createEvent'
 export * from './createEventAction'
 export * from './Emitter'
 export * from './errorEvent'
+export * from './TestEmitter'
 
-import { isNode } from './environment'
+// This is commented out because likely this occurs in testing only and may be an issue with fbemitter.
+// import { isNode } from './environment'
 
 // We are using Emitter as store, just like redux.
 // Expect to have many listeners.
 // istanbul ignore next
-if (isNode)
-  process.setMaxListeners(0)
+// if (isNode)
+//   process.setMaxListeners(0)
