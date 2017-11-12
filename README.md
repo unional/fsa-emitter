@@ -20,7 +20,7 @@ and are not convenient.
 This library addresses this issue by emitting and consuming events using a standard format,
 and provides provides IDE type support so they can be consumed easily.
 
-## Usage
+## Emitter
 
 `Emitter` will capture any error thrown in listener and send it to `console.error()`.
 This is because the listener are UI code and any error thrown in there should not affact logic.
@@ -80,10 +80,46 @@ const emitter = new Emitter()
 add(emitter, { a: 1, b: 2 }, undefined)
 ```
 
-### TestEmitter
+## TestEmitter
 
 Same as `Emitter` but it will not capture error thrown in listeners.
 `TestEmitter` can be used during testing to make your test easier to write.
+
+### listenerCalled(event: TypedEvent | string): boolean
+
+```ts
+import { TestEmitter, createEvent } from 'fsa-emitter'
+
+const emitter = new TestEmitter()
+const count = createEvent<number>('count')
+emitter.on(count, () => ({}))
+t.false(emitter.listenerCalled(count))
+
+emitter.emit(count(1, undefined))
+t.true(emitter.listenerCalled(count))
+t.true(emitter.listenerCalled(count.type))
+```
+
+### allListenersCalled(): boolean
+
+```ts
+import { TestEmitter, createEvent } from 'fsa-emitter'
+
+const emitter = new TestEmitter()
+const count = createEvent<number>('count')
+const bound = createEvent<number>('bound')
+
+emitter.on(count, () => ({}))
+emitter.on(bound, () => ({}))
+
+emitter.emit(count(1, undefined))
+
+t.false(emitter.allListenersCalled())
+
+emitter.emit(bound(1, undefined))
+
+t.true(emitter.allListenersCalled())
+```
 
 ## Contribute
 
