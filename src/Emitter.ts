@@ -5,7 +5,7 @@ import { TypedEvent } from './createEvent'
 import { errorEvent } from './errorEvent'
 
 export class Emitter {
-  private emitter: EventEmitter
+  protected emitter: EventEmitter
   constructor() {
     this.emitter = new EventEmitter()
   }
@@ -38,7 +38,7 @@ export class Emitter {
     return this.emitter.once(type, listener)
   }
 
-  private addErrorEventListener<Payload, Meta>(listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
+  protected addErrorEventListener<Payload, Meta>(listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
     const wrappedListener = (payload, meta, error) => {
       try {
         listener(payload, meta, error)
