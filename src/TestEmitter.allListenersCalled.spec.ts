@@ -30,9 +30,8 @@ test('true when 1 listener defined and triggered', t => {
 test(`false when 2 listeners dfeind but only 1 triggered`, t => {
   const emitter = new TestEmitter()
   const count = createEvent<number>('count')
-  emitter.on(count, () => ({}))
-
   const bound = createEvent<number>('bound')
+  emitter.on(count, () => ({}))
   emitter.on(bound, () => ({}))
 
   emitter.emit(count(1, undefined))
