@@ -121,6 +121,27 @@ emitter.emit(bound(1, undefined))
 t.true(emitter.allListenersCalled())
 ```
 
+### listenedTo(events: (TypedEvent | string)[] | { [k]: TypedEvent })
+
+```ts
+import { TestEmitter, createEvent } from 'fsa-emitter'
+
+const emitter = new TestEmitter()
+const count = createEvent<number>('count')
+const bound = createEvent<number>('bound')
+
+emitter.on(count, () => ({}))
+
+emitter.listenedTo([count]) // true
+emitter.listenedTo({ count }) // true
+emitter.listenedTo(['count']) // true
+
+emitter.listenedTo([ bound ]) // false
+emitter.listenedTo({ bound }) // false
+emitter.listenedTo([ 'bound' ]) // false
+
+```
+
 ## Contribute
 
 ```sh
