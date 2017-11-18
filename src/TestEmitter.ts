@@ -31,6 +31,27 @@ export class TestEmitter extends Emitter {
   allListenersCalled(): boolean {
     return !Object.keys(this.calledListeners).some(t => !this.calledListeners[t])
   }
+  listenedTo(events: (TypedEvent<any, any> | string)[] | { [k: string]: TypedEvent<any, any> }) {
+    if (Array.isArray(events))
+      return this.listenedToEventArray(events)
+    else
+      return this.listenedToEventMap(events)
+  }
+
+  private listenedToEventArray(events: (TypedEvent<any, any> | string)[]) {
+    const keys = Object.keys(this.calledListeners)
+    if (events.length === 0) return true
+    if (events.length >= keys.length) return false
+    return events.every(event => {
+      const type = typeof event === 'string' ? event : event.type
+      return keys.some(k => k === type)
+    })
+  }
+
+  private listenedToEventMap(events: { [k: string]: TypedEvent<any, any> }) {
+    const keys = Object.keys(events)
+    return this.listenedToEventArray(keys.map(k => events[k]))
+  }
 
   protected addErrorEventListener<Payload, Meta>(listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
     return this.emitter.addListener(errorEvent.type, listener)
