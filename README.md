@@ -80,10 +80,88 @@ const emitter = new Emitter()
 add(emitter, { a: 1, b: 2 }, undefined)
 ```
 
+## Command
+
+`Command` is a simple command pattern that provides a simple way to manage dependencies.
+
+```ts
+import { Command, createEvent, Emitter } from 'fsa-emitter'
+
+const count = createEvent<{ n: number }>('count')
+
+class CountCommand extends Command {
+  run(n: number) {
+    while (n) {
+      this.emitter.emit(count({ n }, undefined))
+      n--
+    }
+  }
+}
+
+const emitter = new Emitter()
+const cmd = new CountCommand({ emitter })
+cmd(10)
+```
+
+```ts
+import { Command, createEvent, Emitter } from 'fsa-emitter'
+
+const changeHeight = createEvent<{ height: number }>('changeHeight')
+const landed = createEvent('landed')
+
+class FlyCommand extends Command<{ fuel: number }> {
+  fuel: number
+  height = 0
+  run() {
+    while (this.fuel > 0) {
+      this.height += 100
+      this.fuel--
+      this.emitter.emit(changeHeight({ height: this.height }, undefined))
+    }
+    const gliding = setInterval(() => {
+      this.height -= 50
+      this.emitter.emit(changeHeight({ height: this.height }, undefined))
+      if (this.height <= 0) {
+        this.emitter.emit(landed(undefined, undefined))
+        clearInterval(gliding)
+      }
+    }, 100)
+  }
+}
+
+// `fuel` is in the constructor context
+const fly = new FlyCommand({ emitter: new Emitter(), fuel: 10 })
+fly.run()
+```
+
 ## TestEmitter
 
 Same as `Emitter` but it will not capture error thrown in listeners.
 `TestEmitter` can be used during testing to make your test easier to write.
+
+## setupCommandTest(Command, context?)
+
+`setupCommandTest()` is a simple helper to create a `TestEmitter` for the command to run with.
+The same completion support is available as in the `Command` constructor.
+
+```ts
+import { Command, createEvent, setupCommandTest } from 'fsa-emitter'
+
+const count = createEvent<{ n: number }>('count')
+
+class CountCommand extends Command {
+  ...
+}
+
+const { command, emitter } = setupCommandTest(CountCommand)
+
+class FlyCommand extends Command<{ fuel: number }> {
+  ...
+}
+
+// completion is available for `fuel`
+const { command, emitter } = setupCommandTest(FlyCommand, { fuel: 10 })
+```
 
 ### listenerCalled(event: TypedEvent | string): boolean
 

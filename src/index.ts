@@ -1,3 +1,4 @@
+export * from './Command'
 export * from './createEvent'
 export * from './createEventAction'
 export * from './Emitter'
