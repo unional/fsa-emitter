@@ -1,17 +1,9 @@
 import test from 'ava'
 import Order from 'assert-order'
-import { unpartial } from 'unpartial'
-import { createEvent, TestEmitter, CommandConstructor, CommandContext } from './index'
+import { createEvent, TestEmitter, setupCommandTest } from './index'
 
 import { Command } from './index'
 
-export function setupCommandTest<Context extends CommandContext, Cmd extends Command>(Command: CommandConstructor<Context, Cmd>, givenContext: Partial<Context> = {}) {
-  const emitter = new TestEmitter()
-  const context = unpartial<Context>({ emitter } as any, givenContext)
-  context.emitter = context.emitter || emitter
-  const command = new Command(context)
-  return { emitter, command }
-}
 test('Command provides emitter to subclass', t => {
   const event = createEvent('event')
   class TestCommand extends Command {

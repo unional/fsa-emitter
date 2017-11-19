@@ -3,6 +3,7 @@ export * from './createEvent'
 export * from './createEventAction'
 export * from './Emitter'
 export * from './errorEvent'
+export * from './setupCommandTest'
 export * from './TestEmitter'
 
 // This is commented out because likely this occurs in testing only and may be an issue with fbemitter.
