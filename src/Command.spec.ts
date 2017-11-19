@@ -1,6 +1,6 @@
 import test from 'ava'
 import Order from 'assert-order'
-import { createEvent, TestEmitter, setupCommandTest } from './index'
+import { createEvent, TestEmitter } from './index'
 
 import { Command } from './index'
 
@@ -13,7 +13,8 @@ test('Command provides emitter to subclass', t => {
   }
 
   const order = new Order(1)
-  const { emitter, command } = setupCommandTest(TestCommand)
+  const emitter = new TestEmitter()
+  const command = new TestCommand({ emitter })
   emitter.addListener(event, () => order.once(1))
   command.run()
   order.end()
@@ -29,21 +30,6 @@ test('Command specifying additional context', t => {
   }
   const emitter = new TestEmitter()
   const command = new TestCommand({ emitter, foo: 'foo' })
-  emitter.on('e', foo => {
-    t.is(foo, 'foo')
-  })
-  command.run()
-})
-
-test('setupCommandTest gets completion support for context', t => {
-  class TestCommand extends Command<{ foo: string }> {
-    foo: string
-    run() {
-      this.emitter.emit({ type: 'e', payload: this.foo, error: false, meta: undefined })
-    }
-  }
-
-  const { command, emitter } = setupCommandTest(TestCommand, { foo: 'foo' })
   emitter.on('e', foo => {
     t.is(foo, 'foo')
   })
