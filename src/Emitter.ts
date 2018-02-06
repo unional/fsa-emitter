@@ -38,6 +38,9 @@ export class Emitter {
     const type = typeof event === 'string' ? event : event.type
     return this.emitter.once(type, listener)
   }
+  /**
+   * Gets into a queue and listen to one event.
+   */
   queue<Payload, Meta>(event: TypedEvent<Payload, Meta> | string, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
     const type = typeof event === 'string' ? event : event.type
     const queue = this.eventQueues[type] = this.eventQueues[type] || []
