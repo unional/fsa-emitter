@@ -1,5 +1,5 @@
 import { test } from 'ava'
-import { isFSA, isError, FSA } from 'flux-standard-action'
+import { isFSA, isError } from 'flux-standard-action'
 
 import { createEvent, createScopedCreateEvent } from './index'
 
@@ -39,7 +39,7 @@ test(`isError predicate to create Error FSA`, t => {
 
 test('match should type guard an action', t => {
   const withMeta = createEvent<{ a: string }>('withMeta')
-  const action = withMeta({ a: 'a' }, undefined) as FSA<any, any>
+  const action = withMeta({ a: 'a' }, undefined)
 
   if (withMeta.match(action)) {
     // `payload.a` is properly typed as `string`

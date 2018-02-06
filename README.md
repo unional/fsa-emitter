@@ -4,7 +4,12 @@
 [![NPM downloads][downloads-image]][downloads-url]
 [![Build status][travis-image]][travis-url]
 [![Coverage Status][coveralls-image]][coveralls-url]
-[![Greenkeeper badge](https://badges.greenkeeper.io/unional/unpartial.svg)](https://greenkeeper.io/)
+
+[![Greenkeeper][greenkeeper-image]][greenkeeper-url]
+[![Semantic Release][semantic-release-image]][semantic-release-url]
+
+[![Visual Studio Code][vscode-image]][vscode-url]
+[![Wallaby.js][wallaby-image]][wallaby-url]
 
 EventEmitter in FSA style.
 
@@ -238,3 +243,11 @@ npm run watch
 [travis-url]: https://travis-ci.org/unional/fsa-emitter?branch=master
 [coveralls-image]: https://coveralls.io/repos/github/unional/fsa-emitter/badge.svg
 [coveralls-url]: https://coveralls.io/github/unional/fsa-emitter
+[greenkeeper-image]:https://badges.greenkeeper.io/unional/komondor.svg
+[greenkeeper-url]:https://greenkeeper.io/
+[semantic-release-image]:https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
+[semantic-release-url]:https://github.com/semantic-release/semantic-release
+[wallaby-image]:https://img.shields.io/badge/wallaby.js-configured-green.svg
+[wallaby-url]:https://wallabyjs.com
+[vscode-image]:https://img.shields.io/badge/vscode-ready-green.svg
+[vscode-url]:https://code.visualstudio.com/
