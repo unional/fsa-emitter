@@ -1,8 +1,7 @@
 import test from 'ava'
 import Order from 'assert-order'
-import { createEvent, TestEmitter } from './index'
 
-import { Command } from './index'
+import { Command, createEvent, TestEmitter } from './index'
 
 test('Command provides emitter to subclass', t => {
   const event = createEvent('event')
