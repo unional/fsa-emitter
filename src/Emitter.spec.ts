@@ -131,3 +131,45 @@ test('listen using type string', t => {
   emitter.emit(minus(2, undefined))
   emitter.emit(multiply({ a: 2, b: 3, result: 6 }, undefined))
 })
+
+test('queue() will invoked once and move to the next listener', t => {
+  const emitter = new Emitter()
+  const count = createEvent<number>('count')
+  t.plan(2)
+  emitter.queue(count, c => {
+    t.is(c, 1)
+  })
+  emitter.queue('count', c => {
+    t.is(c, 2)
+  })
+  emitter.emit(count(1, undefined))
+  emitter.emit(count(2, undefined))
+})
+
+test('queue(): calling remove() on subscription will prevent it from invoking', t => {
+  const emitter = new Emitter()
+  const count = createEvent<number>('count')
+
+  const sub = emitter.queue(count, () => {
+    t.fail()
+  })
+  sub.remove()
+  emitter.emit(count(1, undefined))
+  t.pass()
+})
+
+test('queue(): calling remove() on queued subscription will prevent it from invoking', t => {
+  const emitter = new Emitter()
+  const count = createEvent<number>('count')
+
+  t.plan(1)
+  emitter.queue(count, c => {
+    t.is(c, 1)
+  })
+  const sub = emitter.queue(count, () => {
+    t.fail()
+  })
+  sub.remove()
+  emitter.emit(count(1, undefined))
+  emitter.emit(count(2, undefined))
+})

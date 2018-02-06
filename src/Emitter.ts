@@ -6,6 +6,7 @@ import { errorEvent } from './errorEvent'
 
 export class Emitter {
   protected emitter: EventEmitter
+  protected eventQueues: { [k: string]: Function[] } = {}
   constructor() {
     this.emitter = new EventEmitter()
   }
@@ -36,6 +37,32 @@ export class Emitter {
   once<Payload, Meta>(event: TypedEvent<Payload, Meta> | string, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
     const type = typeof event === 'string' ? event : event.type
     return this.emitter.once(type, listener)
+  }
+  /**
+   * Gets into a queue and listen to one event.
+   */
+  queue<Payload, Meta>(event: TypedEvent<Payload, Meta> | string, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
+    const type = typeof event === 'string' ? event : event.type
+    const queue = this.eventQueues[type] = this.eventQueues[type] || []
+    const wrap = (payload: Payload, meta: Meta, error: boolean) => {
+      listener(payload, meta, error)
+      queue.shift()
+      if (queue.length > 0)
+        this.emitter.once(type, queue[0])
+    }
+
+    queue.push(wrap)
+    if (queue.length === 1)
+      return this.emitter.once(type, wrap)
+    else {
+      return {
+        listener: wrap,
+        context: undefined,
+        remove() {
+          queue.splice(queue.indexOf(wrap), 1)
+        }
+      }
+    }
   }
 
   protected addErrorEventListener<Payload, Meta>(listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {

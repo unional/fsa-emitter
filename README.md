@@ -1,6 +1,5 @@
 # FSA-Emitter
 
-[![unstable][unstable-image]][unstable-url]
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][downloads-image]][downloads-url]
 [![Build status][travis-image]][travis-url]
@@ -231,8 +230,6 @@ npm run watch
 
 ```
 
-[unstable-image]: http://badges.github.io/stability-badges/dist/unstable.svg
-[unstable-url]: http://github.com/badges/stability-badges
 [npm-image]: https://img.shields.io/npm/v/fsa-emitter.svg?style=flat
 [npm-url]: https://npmjs.org/package/fsa-emitter
 [downloads-image]: https://img.shields.io/npm/dm/fsa-emitter.svg?style=flat
