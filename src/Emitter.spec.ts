@@ -155,6 +155,7 @@ test('queue(): calling remove() on subscription will prevent it from invoking', 
   })
   sub.remove()
   emitter.emit(count(1, undefined))
+  t.pass()
 })
 
 test('queue(): calling remove() on queued subscription will prevent it from invoking', t => {
