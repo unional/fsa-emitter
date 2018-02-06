@@ -1,5 +1,5 @@
 import { test } from 'ava'
-import { isFSA, isError, FSA } from 'flux-standard-action'
+import { isFSA, isError } from 'flux-standard-action'
 
 import { createEvent, createScopedCreateEvent } from './index'
 
