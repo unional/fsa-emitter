@@ -1,6 +1,6 @@
 {
   "name": "fsa-emitter",
-  "version": "0.4.5",
+  "version": "0.0.0-development",
   "description": "Emitter using Flux Standard Action",
   "main": "dist-es5/index.js",
   "module": "dist-es2015/index.js",
@@ -25,11 +25,12 @@
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "test": "npm run clean && tsc && ava",
     "watch": "npm run clean && node scripts/watch.js",
-    "debug": "node scripts/debug.js"
+    "debug": "node scripts/debug.js",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/unional/fsa-emitter.git"
+    "url": "https://github.com/unional/fsa-emitter.git"
   },
   "keywords": [
     "typescript",
@@ -67,19 +68,20 @@
   "dependencies": {
     "@types/fbemitter": "^2.0.32",
     "fbemitter": "^2.1.1",
-    "flux-standard-action": "^2.0.0",
-    "lodash.merge": "^4.6.0",
+    "flux-standard-action": "^2.0.1",
+    "lodash.merge": "^4.6.1",
     "unpartial": "^0.4.1"
   },
   "devDependencies": {
-    "@types/node": "^8.0.53",
+    "@types/node": "^8.5.9",
     "assert-order": "^3.1.1",
     "ava": "^0.25.0",
     "dependency-check": "^3.0.0",
-    "nyc": "^11.3.0",
+    "nyc": "^11.4.1",
     "rimraf": "^2.6.2",
-    "tslint": "^5.8.0",
-    "tslint-config-unional": "^0.8.0",
-    "typescript": "^2.6.1"
+    "semantic-release": "^12.4.1",
+    "tslint": "^5.9.1",
+    "tslint-config-unional": "^0.9.0",
+    "typescript": "^2.7.1"
   }
 }
