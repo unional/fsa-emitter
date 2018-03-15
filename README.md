@@ -62,8 +62,7 @@ npm install fsa-emitter
 
 `Emitter` uses [`FluxStandardAction`](https://github.com/acdlite/flux-standard-action) as the standard event format.
 
-Another key differences between `Emitter` and NodeJS `EventEmitter`,
-is that `Emitter` will capture any error thrown in listener and send it to `console.error()`.
+Another key difference between `Emitter` and NodeJS `EventEmitter` is that `Emitter` will capture any error thrown in listener and send it to `console.error()`.
 This avoid any listener code throws error and break the event emitting logic.
 
 To create event, use one of the helper methods below:
@@ -84,12 +83,16 @@ const createMyModuleEvent = createScopedCreateEvent('myModule')
 // `scopedCount` will emit FSA with `type: 'myModule/count'`
 const scopedCount = createMyModuleEvent<number>('count')
 
-const add = createAction</* input */ { a: number, b: number }, /* payload */ number>('add', ({ a, b }) => emit => emit(a + b))
+const add = createAction<
+  /* input */ { a: number, b: number },
+  /* payload */ number>('add', ({ a, b }) => emit => emit(a + b))
 
 // create scoped action
 const createMyModuleAction = createScopedCreateEventAction('myModule')
 // `scopedCountAction` will emit FSA with `type: 'myModule/add'`
-const scopedAdd = createMyModuleAction</* input */ { a: number, b: number }, /* payload */ number>('add', ({ a, b }) => emit => emit(a + b))
+const scopedAdd = createMyModuleAction<
+  /* input */ { a: number, b: number },
+  /* payload */ number>('add', ({ a, b }) => emit => emit(a + b))
 
 const emitter = new Emitter()
 
