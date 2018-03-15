@@ -86,7 +86,7 @@ export class Emitter {
     }
   }
 
-  onMiss(listener: (fsa: FluxStandardAction<any>) => void) {
+  onMissed(listener: (fsa: FluxStandardAction<any>) => void) {
     this.listenMisses.push(listener)
     return {
       remove: () => {

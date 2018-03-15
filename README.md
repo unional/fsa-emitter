@@ -128,7 +128,7 @@ emitter.queue(count, value => console.info(value))
 emitter.onAny(fsa => console.info(fsa.type, fsa.payload))
 
 // listen to any event that does not have a listener
-emitter.onMiss(fsa => console.info(fsa.type, fsa.payload))
+emitter.onMissed(fsa => console.info(fsa.type, fsa.payload))
 ```
 
 ## Command

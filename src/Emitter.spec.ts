@@ -219,11 +219,11 @@ test('onAny() returns subscription second remove is noop', t => {
   t.is(type, 'x')
 })
 
-test('onMiss() listens to all not listened events', t => {
+test('onMissed() listens to all not listened events', t => {
   const emitter = new Emitter()
 
   let type = ''
-  emitter.onMiss(fsa => {
+  emitter.onMissed(fsa => {
     type += fsa.type
   })
   emitter.on('x', () => { return })
@@ -237,7 +237,7 @@ test('onMiss() returns subscription for removing itself', t => {
   const emitter = new Emitter()
 
   let type = ''
-  const sub = emitter.onMiss(fsa => {
+  const sub = emitter.onMissed(fsa => {
     type += fsa.type
   })
   emitter.on('x', () => { return })
@@ -252,7 +252,7 @@ test('onMiss() returns subscription second remove is noop', t => {
   const emitter = new Emitter()
 
   let type = ''
-  const sub = emitter.onMiss(fsa => {
+  const sub = emitter.onMissed(fsa => {
     type += fsa.type
   })
   emitter.on('x', () => { return })
