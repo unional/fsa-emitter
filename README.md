@@ -24,17 +24,13 @@ and are not convenient.
 This library addresses this issue by emitting and consuming events using a standard format,
 and provides provides IDE type support so they can be consumed easily.
 
-## Emitter
+## Best practice
 
-`Emitter` will capture any error thrown in listener and send it to `console.error()`.
-This is because the listener are UI code and any error thrown in there should not affact logic.
-
-### createEvent<Payload, Meta>(type: string): Event<Payload, Meta>
-
-Creates an event.
+One of the benefits of using events is decoupling.
+Here is one way to organize your code:
 
 ```ts
-// count.ts
+// actions.ts
 import { createEvent, Emitter } from 'fsa-emitter'
 
 export const count = createEvent<number>('count')
@@ -44,44 +40,90 @@ export const emitter = new Emitter()
 
 // logic.ts
 import { emitter } from './app'
-import { count } from './count'
-emitter.emit(count(1))
+import { count } from './actions'
+
+emitter.emit(count(1, undefined))
 
 // in UI
 import { emitter } from './app'
-import { count } from './count'
-emitter.addListener(count, (payload) => {
+import { count } from './actions'
+emitter.on(count, payload => {
   console.log('payload is typed and is a number: ', payload)
 })
-
 ```
 
-### createScopedCreateEvent(scope: string): <Payload, Meta>(subType: string) => Event<Payload, Meta>
+## Installation
 
-Create scoped events
+```sh
+npm install fsa-emitter
+```
+
+## Emitter
+
+`Emitter` uses [`FluxStandardAction`](https://github.com/acdlite/flux-standard-action) as the standard event format.
+
+Another key differences between `Emitter` and NodeJS `EventEmitter`,
+is that `Emitter` will capture any error thrown in listener and send it to `console.error()`.
+This avoid any listener code throws error and break the event emitting logic.
+
+To create event, use one of the helper methods below:
 
 ```ts
-import { createScopedCreateEvent } from 'fsa-emitter'
-
-const createEvent = createScopedCreateEvent('scope')
+import {
+  createEvent,
+  createScopedCreateEvent,
+  createEventAction,
+  createScopedCreateEventAction,
+  Emitter
+} from 'fsa-emitter'
 
 const count = createEvent<number>('count')
 
-count.type // `scope/count`
-```
+// create scoped event
+const createMyModuleEvent = createScopedCreateEvent('myModule')
+// `scopedCount` will emit FSA with `type: 'myModule/count'`
+const scopedCount = createMyModuleEvent<number>('count')
 
-### createEventAction<Input, Payload, Meta>(type: string, action: (input: Input) => emit => void): EventAction<Input, Payload, Meta>
+const add = createAction</* input */ { a: number, b: number }, /* payload */ number>('add', ({ a, b }) => emit => emit(a + b))
 
-Create an event action.
-
-```ts
-import { createEventAction, Emitter } from 'fsa-emitter'
-
-const add = createEventAction<{ a: number, b: number }, { a: number, b: number, result: number }>('add', ({ a, b }) => emit => emit({ a, b, result: a + b }))
+// create scoped action
+const createMyModuleAction = createScopedCreateEventAction('myModule')
+// `scopedCountAction` will emit FSA with `type: 'myModule/add'`
+const scopedAdd = createMyModuleAction</* input */ { a: number, b: number }, /* payload */ number>('add', ({ a, b }) => emit => emit(a + b))
 
 const emitter = new Emitter()
 
+emitter.emit(count(1, undefined))
+emitter.emit(scopedCount(2, undefined))
 add(emitter, { a: 1, b: 2 }, undefined)
+scopedAdd(emitter, { a: 1, b: 2 }, undefined)
+```
+
+Note that due to <https://github.com/Microsoft/TypeScript/issues/12400>,
+you need to supply `undefined` at where they expect `meta`.
+
+To consume the event, use one of the following methods:
+
+```ts
+import { createEvent, Emitter } from 'fsa-emitter'
+
+const count = createEvent<number>('count')
+const emitter = new Emitter()
+
+emitter.addListener(count, value => console.info(value))
+emitter.on(count, value => console.info(value))
+
+// Will only listen to the event once
+emitter.once(count, value => console.info(value))
+
+// line up in queue to listen for the event once
+emitter.queue(count, value => console.info(value))
+
+// listen to all events
+emitter.onAny(fsa => console.info(fsa.type, fsa.payload))
+
+// listen to any event that does not have a listener
+emitter.onMiss(fsa => console.info(fsa.type, fsa.payload))
 ```
 
 ## Command
@@ -140,32 +182,12 @@ fly.run()
 
 ## TestEmitter
 
-Same as `Emitter` but it will not capture error thrown in listeners.
-`TestEmitter` can be used during testing to make your test easier to write.
+`TestEmitter` can be used as a drop in replacement as `Emitter` during test.
 
-## setupCommandTest(Command, context?)
+The difference between `TestEmitter` and `Emitter` is that `TestEmitter` will not capture errors thrown in listeners.
+This make it more suitable to use during testing so that you can detect any error thrown during the test.
 
-`setupCommandTest()` is a simple helper to create a `TestEmitter` for the command to run with.
-The same completion support is available as in the `Command` constructor.
-
-```ts
-import { Command, createEvent, setupCommandTest } from 'fsa-emitter'
-
-const count = createEvent<{ n: number }>('count')
-
-class CountCommand extends Command {
-  ...
-}
-
-const { command, emitter } = setupCommandTest(CountCommand)
-
-class FlyCommand extends Command<{ fuel: number }> {
-  ...
-}
-
-// completion is available for `fuel`
-const { command, emitter } = setupCommandTest(FlyCommand, { fuel: 10 })
-```
+Also, it provides some additional methods:
 
 ### listenerCalled(event: TypedEvent | string): boolean
 
@@ -221,7 +243,30 @@ emitter.listenedTo(['count']) // true
 emitter.listenedTo([ bound ]) // false
 emitter.listenedTo({ bound }) // false
 emitter.listenedTo([ 'bound' ]) // false
+```
 
+## setupCommandTest(Command, context?)
+
+`setupCommandTest()` is a simple helper to create a `TestEmitter` for the command to run with.
+The same completion support is available as in the `Command` constructor.
+
+```ts
+import { Command, createEvent, setupCommandTest } from 'fsa-emitter'
+
+const count = createEvent<{ n: number }>('count')
+
+class CountCommand extends Command {
+  ...
+}
+
+const { command, emitter } = setupCommandTest(CountCommand)
+
+class FlyCommand extends Command<{ fuel: number }> {
+  ...
+}
+
+// completion is available for `fuel`
+const { command, emitter } = setupCommandTest(FlyCommand, { fuel: 10 })
 ```
 
 ## Contribute
