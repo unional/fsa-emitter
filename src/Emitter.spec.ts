@@ -173,3 +173,93 @@ test('queue(): calling remove() on queued subscription will prevent it from invo
   emitter.emit(count(1, undefined))
   emitter.emit(count(2, undefined))
 })
+
+test('onAny() will listen to all events', t => {
+  const emitter = new Emitter()
+
+  let type = ''
+  emitter.onAny(fsa => {
+    type += fsa.type
+  })
+
+  emitter.emit({ type: 'x', payload: 1, meta: undefined })
+  emitter.emit({ type: 'y', payload: 1, meta: undefined })
+
+  t.is(type, 'xy')
+})
+
+test('onAny() returns subscription for removing itself', t => {
+  const emitter = new Emitter()
+
+  let type = ''
+  const sub = emitter.onAny(fsa => {
+    type += fsa.type
+  })
+
+  emitter.emit({ type: 'x', payload: 1, meta: undefined })
+  sub.remove()
+  emitter.emit({ type: 'y', payload: 1, meta: undefined })
+
+  t.is(type, 'x')
+})
+
+test('onAny() returns subscription second remove is noop', t => {
+  const emitter = new Emitter()
+
+  let type = ''
+  const sub = emitter.onAny(fsa => {
+    type += fsa.type
+  })
+
+  emitter.emit({ type: 'x', payload: 1, meta: undefined })
+  sub.remove()
+  sub.remove()
+  emitter.emit({ type: 'y', payload: 1, meta: undefined })
+
+  t.is(type, 'x')
+})
+
+test('onMiss() listens to all not listened events', t => {
+  const emitter = new Emitter()
+
+  let type = ''
+  emitter.onMiss(fsa => {
+    type += fsa.type
+  })
+  emitter.on('x', () => { return })
+  emitter.emit({ type: 'x', payload: 1, meta: undefined })
+  emitter.emit({ type: 'y', payload: 1, meta: undefined })
+
+  t.is(type, 'y')
+})
+
+test('onMiss() returns subscription for removing itself', t => {
+  const emitter = new Emitter()
+
+  let type = ''
+  const sub = emitter.onMiss(fsa => {
+    type += fsa.type
+  })
+  emitter.on('x', () => { return })
+  emitter.emit({ type: 'x', payload: 1, meta: undefined })
+  sub.remove()
+  emitter.emit({ type: 'y', payload: 1, meta: undefined })
+
+  t.is(type, '')
+})
+
+test('onMiss() returns subscription second remove is noop', t => {
+  const emitter = new Emitter()
+
+  let type = ''
+  const sub = emitter.onMiss(fsa => {
+    type += fsa.type
+  })
+  emitter.on('x', () => { return })
+  emitter.emit({ type: 'x', payload: 1, meta: undefined })
+  sub.remove()
+  sub.remove()
+  emitter.emit({ type: 'y', payload: 1, meta: undefined })
+
+  t.is(type, '')
+})
