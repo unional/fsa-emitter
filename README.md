@@ -22,7 +22,7 @@ This implicit knowledge coupling relies on communication and documentation that 
 and are not convenient.
 
 This library addresses this issue by emitting and consuming events using a standard format,
-and provides provides IDE type support so they can be consumed easily.
+and provides IDE type support so they can be consumed easily.
 
 ## Best practice
 
