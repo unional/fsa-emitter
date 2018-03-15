@@ -1,4 +1,4 @@
-import { FSA } from 'flux-standard-action'
+import { FSA, FluxStandardAction } from 'flux-standard-action'
 import { EventEmitter, EventSubscription } from 'fbemitter'
 
 import { TypedEvent } from './createEvent'
@@ -7,11 +7,21 @@ import { errorEvent } from './errorEvent'
 export class Emitter {
   protected emitter: EventEmitter
   protected eventQueues: { [k: string]: Function[] } = {}
+  protected listenAlls: Function[] = []
+  protected listenMisses: Function[] = []
   constructor() {
     this.emitter = new EventEmitter()
+    // const emit = this.emitter.emit
+    // this.emitter.emit = (eventType, ...data) => {
+    //   emit.call(this.emitter, eventType, ...data)
+
+    // }
   }
   emit<Payload, Meta>({ type, payload, meta, error }: FSA<Payload, Meta>) {
-    return this.emitter.emit(type as string, payload, meta, error)
+    this.emitter.emit(type as string, payload, meta, error)
+    this.listenAlls.forEach(l => l({ type, payload, meta, error }))
+    if (this.emitter.listeners(type).length === 0)
+      this.listenMisses.forEach(l => l({ type, payload, meta, error }))
   }
 
   addListener<Payload, Meta>(
@@ -61,6 +71,28 @@ export class Emitter {
         remove() {
           queue.splice(queue.indexOf(wrap), 1)
         }
+      }
+    }
+  }
+
+  onAny(listener: (fsa: FluxStandardAction<any>) => void) {
+    this.listenAlls.push(listener)
+    return {
+      remove: () => {
+        const i = this.listenAlls.indexOf(listener)
+        if (i >= 0)
+          this.listenAlls.splice(i, 1)
+      }
+    }
+  }
+
+  onMiss(listener: (fsa: FluxStandardAction<any>) => void) {
+    this.listenMisses.push(listener)
+    return {
+      remove: () => {
+        const i = this.listenMisses.indexOf(listener)
+        if (i >= 0)
+          this.listenMisses.splice(i, 1)
       }
     }
   }
