@@ -20,7 +20,7 @@ export class Emitter {
   emit<Payload, Meta>({ type, payload, meta, error }: FSA<Payload, Meta>) {
     this.emitter.emit(type as string, payload, meta, error)
     this.listenAlls.forEach(l => l({ type, payload, meta, error }))
-    if (this.emitter.listeners(type).length === 0)
+    if (this.listenMisses.length > 0 && this.emitter.listeners(type).length === 0)
       this.listenMisses.forEach(l => l({ type, payload, meta, error }))
   }
 
