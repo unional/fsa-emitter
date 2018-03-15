@@ -30,23 +30,25 @@ One of the benefits of using events is decoupling.
 Here is one way to organize your code:
 
 ```ts
-// actions.ts
+// app.ts
+import { doWork } from './doWork'
+
+const emitter = new Emitter()
+
+doWork({ emitter })
+
+// doWork.ts
 import { createEvent, Emitter } from 'fsa-emitter'
 
 export const count = createEvent<number>('count')
 
-// app.ts
-export const emitter = new Emitter()
-
-// logic.ts
-import { emitter } from './app'
-import { count } from './actions'
-
-emitter.emit(count(1, undefined))
+export function doWork({ emitter }) {
+  emitter.emit(count(1, undefined))
+}
 
 // in UI
-import { emitter } from './app'
-import { count } from './actions'
+import { count } from './doWork'
+
 emitter.on(count, payload => {
   console.log('payload is typed and is a number: ', payload)
 })
