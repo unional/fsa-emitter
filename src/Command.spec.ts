@@ -1,5 +1,5 @@
 import test from 'ava'
-import Order from 'assert-order'
+import { AssertOrder } from 'assertron'
 
 import { Command, createEvent, TestEmitter } from './index'
 
@@ -11,7 +11,7 @@ test('Command provides emitter to subclass', t => {
     }
   }
 
-  const order = new Order(1)
+  const order = new AssertOrder(1)
   const emitter = new TestEmitter()
   const command = new TestCommand({ emitter })
   emitter.addListener(event, () => order.once(1))
