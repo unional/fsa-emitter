@@ -15,10 +15,11 @@ export class TestEmitter extends Emitter {
   constructor() {
     super()
 
-    this.onMissed(({ type, payload }) => {
+    this.onMissed(({ type, payload, meta }) => {
       console.error(`missed event:
   type: ${type}
-  payload: ${tersify(payload, { maxLength: Infinity })}`)
+  payload: ${tersify(payload, { maxLength: Infinity })}
+  meta: ${tersify(meta)}`)
     })
   }
   addListener<Payload, Meta>(
