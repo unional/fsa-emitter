@@ -64,24 +64,25 @@
     ]
   },
   "devDependencies": {
-    "@types/node": "^9.4.1",
-    "assertron": "^4.1.0",
+    "@types/node": "^9.6.6",
+    "assertron": "^4.3.1",
     "ava": "^0.25.0",
     "dependency-check": "^3.1.0",
     "eslint": "^4.19.1",
     "eslint-plugin-harmony": "^1.0.3",
-    "nyc": "^11.6.0",
+    "nyc": "^11.7.1",
     "rimraf": "^2.6.2",
-    "semantic-release": "^15.0.1",
+    "semantic-release": "^15.1.7",
     "tslint": "^5.9.1",
-    "tslint-config-unional": "^0.9.2",
-    "typescript": "^2.7.2"
+    "tslint-config-unional": "^0.9.3",
+    "typescript": "^2.8.3"
   },
   "dependencies": {
     "@types/fbemitter": "^2.0.32",
     "fbemitter": "^2.1.1",
-    "flux-standard-action": "^2.0.1",
+    "flux-standard-action": "^2.0.2",
     "lodash.merge": "^4.6.1",
+    "tersify": "^1.2.5",
     "unpartial": "^0.4.1"
   }
 }

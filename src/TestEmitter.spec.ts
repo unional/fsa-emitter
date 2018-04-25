@@ -52,3 +52,11 @@ test('error thrown in listener is thrown for error event', t => {
   const err = t.throws(() => emitter.emit(errorEvent(new Error('abc'), undefined)))
   t.is(err.message, 'thrown')
 })
+
+test('automatically listen to missed', t => {
+  const emitter = new TestEmitter()
+
+  emitter.emit({ type: 'expected', payload: 'to see during test', meta: { somedata: 'good' } })
+
+  t.is(emitter['listenMisses'].length, 1)
+})
