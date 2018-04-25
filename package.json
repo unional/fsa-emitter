@@ -68,6 +68,8 @@
     "assertron": "^4.1.0",
     "ava": "^0.25.0",
     "dependency-check": "^3.1.0",
+    "eslint": "^4.19.1",
+    "eslint-plugin-harmony": "^1.0.3",
     "nyc": "^11.6.0",
     "rimraf": "^2.6.2",
     "semantic-release": "^15.0.1",
