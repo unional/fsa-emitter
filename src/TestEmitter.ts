@@ -1,7 +1,9 @@
-import { Emitter } from './Emitter';
-import { TypedEvent } from './createEvent';
-import { EventSubscription } from 'fbemitter';
-import { errorEvent } from './errorEvent';
+import { tersify } from 'tersify'
+
+import { TypedEvent } from './createEvent'
+import { Emitter } from './Emitter'
+import { errorEvent } from './errorEvent'
+import { EventSubscription } from 'fbemitter'
 
 /**
  * Emitter used for testing.
@@ -10,6 +12,15 @@ import { errorEvent } from './errorEvent';
  */
 export class TestEmitter extends Emitter {
   private calledListeners: { [k: string]: boolean } = {}
+  constructor() {
+    super()
+
+    this.onMissed(({ type, payload }) => {
+      console.error(`missed event:
+  type: ${type}
+  payload: ${tersify(payload, { maxLength: Infinity })}`)
+    })
+  }
   addListener<Payload, Meta>(
     event: TypedEvent<Payload, Meta> | string,
     listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {

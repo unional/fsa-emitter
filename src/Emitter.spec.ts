@@ -103,7 +103,7 @@ test('error thrown in errorAction handler should not cause call stack overflow',
 
   // errorAction should not throw, it should be handled differently.
   emitter.on(errorEvent, () => {
-    throw new Error('thrown in errorAction listener. console.error(Error) is expected')
+    throw new Error('thrown in errorAction listener. Seeing this message during test run is expected')
   })
 
   noThrow()
