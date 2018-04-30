@@ -15,7 +15,7 @@ export function createScopedCreateEvent(scope: string): typeof createEvent {
   return (type) => createEvent(`${scope}/${type}`)
 }
 
-export function createEvent<Payload = undefined, Meta = undefined>(type: string, isError: ((payload: Payload) => boolean) | boolean = defaultIsErrorPredicate): Event<Payload, Meta> {
+export function createEvent<Payload = any, Meta = undefined>(type: string, isError: ((payload: Payload) => boolean) | boolean = defaultIsErrorPredicate): Event<Payload, Meta> {
   return Object.assign(
     (payload: Payload, meta: Meta) => {
       return isError && (typeof isError === 'boolean' || isError(payload)) ?

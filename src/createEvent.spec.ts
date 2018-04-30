@@ -11,6 +11,11 @@ test('empty eventCreator creates FSA compliant action', t => {
   t.true(isFSA(blip(undefined, undefined)))
 })
 
+test('Payload type defaults to any', t => {
+  const nopayload = createEvent('noPayload')
+  t.true(isFSA(nopayload({ a: 1 }, undefined)))
+})
+
 test('eventCreator with payload creates FSA compliant action', t => {
   const count = createEvent<number>('count')
   t.true(isFSA(count(1, undefined)))
