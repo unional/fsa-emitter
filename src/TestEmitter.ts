@@ -4,6 +4,7 @@ import { TypedEvent } from './createEvent'
 import { Emitter } from './Emitter'
 import { errorEvent } from './errorEvent'
 import { EventSubscription } from 'fbemitter'
+import { FluxStandardAction } from 'flux-standard-action';
 
 /**
  * Emitter used for testing.
@@ -15,12 +16,7 @@ export class TestEmitter extends Emitter {
   constructor() {
     super()
 
-    this.onMissed(({ type, payload, meta }) => {
-      console.error(`missed event:
-  type: ${type}
-  payload: ${tersify(payload, { maxLength: Infinity })}
-  meta: ${tersify(meta)}`)
-    })
+    this.listenMisses.push(defaultMiss)
   }
   addListener<Payload, Meta>(
     event: TypedEvent<Payload, Meta> | string,
@@ -49,6 +45,12 @@ export class TestEmitter extends Emitter {
     else
       return this.listenedToEventMap(events)
   }
+  onMissed(listener: (fsa: FluxStandardAction<any, undefined>) => void) {
+    if (this.listenMisses.length === 1 && this.listenMisses[0] === defaultMiss) {
+      this.listenMisses.splice(0, 1)
+    }
+    return super.onMissed(listener)
+  }
 
   private listenedToEventArray(events: (TypedEvent<any, any> | string)[]) {
     const keys = Object.keys(this.calledListeners)
@@ -68,4 +70,11 @@ export class TestEmitter extends Emitter {
   protected addErrorEventListener<Payload, Meta>(listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
     return this.emitter.addListener(errorEvent.type, listener)
   }
+}
+
+function defaultMiss({ type, payload, meta }) {
+  console.error(`missed event:
+type: ${type}
+payload: ${tersify(payload, { maxLength: Infinity })}
+meta: ${tersify(meta)}`)
 }
