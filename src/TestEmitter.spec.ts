@@ -60,3 +60,9 @@ test('automatically listen to missed', t => {
 
   t.is(emitter['listenMisses'].length, 1)
 })
+
+test('explicit onMissed() will remove default listener', t => {
+  const emitter = new TestEmitter()
+  emitter.onMissed(() => { return })
+  t.is(emitter['listenMisses'].length, 1)
+})
