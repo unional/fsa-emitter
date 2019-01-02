@@ -31,7 +31,7 @@ export class Emitter {
     if (type === errorEvent.type)
       return this.addErrorEventListener(listener)
 
-    const wrappedListener = (payload, meta, error) => {
+    const wrappedListener = (payload: Payload, meta: Meta, error: boolean) => {
       try {
         listener(payload, meta, error)
       }
@@ -98,7 +98,7 @@ export class Emitter {
   }
 
   protected addErrorEventListener<Payload, Meta>(listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
-    const wrappedListener = (payload, meta, error) => {
+    const wrappedListener = (payload: Payload, meta: Meta, error: boolean) => {
       try {
         listener(payload, meta, error)
       }

@@ -1,70 +1,75 @@
-import test from 'ava'
+import t from 'assert'
 
 import { createEvent, Emitter, errorEvent, createEventAction } from './index'
 
-test('addListener(): listener(payload) is typed', t => {
+test('addListener(): listener(payload) is typed', () => {
   const emitter = new Emitter()
   const count = createEvent<number>('count')
 
   emitter.addListener(count, payload => {
     // payload: number
-    t.is(payload, 1)
+    t.strictEqual(payload, 1)
   })
 
   emitter.emit(count(1, undefined))
 })
 
-test('on()', t => {
+test('on()', () => {
   const emitter = new Emitter()
   const count = createEvent<number>('count')
 
   emitter.on(count, payload => {
     // payload: number
-    t.is(payload, 1)
+    t.strictEqual(payload, 1)
   })
 
   emitter.emit(count(1, undefined))
 })
 
-test('support Error action', t => {
+test('support Error action', () => {
   const emitter = new Emitter()
   const error = createEvent<Error>('error')
   emitter.addListener(error, ({ message }, _meta, error) => {
-    t.is(message, 'abc')
-    t.true(error)
+    t.strictEqual(message, 'abc')
+    t(error)
   })
 
   emitter.emit(error(new Error('abc'), undefined))
 })
 
-test('onceListener will listen once', t => {
+test('onceListener will listen once', () => {
   const emitter = new Emitter()
   const count = createEvent<number>('count')
 
-  t.plan(1)
+  let called = 0
   emitter.once(count, payload => {
-    t.is(payload, 1)
+    t.strictEqual(payload, 1)
+    ++called
   })
 
   emitter.emit(count(1, undefined))
   emitter.emit(count(2, undefined))
+
+  t.strictEqual(called, 1)
 })
 
-test('emit with meta gets meta in second param', t => {
+test('emit with meta gets meta in second param', () => {
   const emitter = new Emitter()
   const count = createEvent<number, { version: number }>('count')
 
-  t.plan(2)
+  let called = false
   emitter.once(count, (payload, meta) => {
-    t.is(payload, 1)
-    t.deepEqual(meta, { version: 3 })
+    t.strictEqual(payload, 1)
+    t.deepStrictEqual(meta, { version: 3 })
+    called = true
   })
 
   emitter.emit(count(1, { version: 3 }))
   emitter.emit(count(2, { version: 3 }))
+  t(called)
 })
 
-test(`error thrown in listener should not affect emitting code. An error action is emitted to capture the error so it will not be lost.`, t => {
+test(`error thrown in listener should not affect emitting code. An error action is emitted to capture the error so it will not be lost.`, () => {
   const emitter = new Emitter()
   const count = createEvent<number>('count')
 
@@ -80,13 +85,13 @@ test(`error thrown in listener should not affect emitting code. An error action 
   emitter.on(count, () => { throw new Error('thrown') })
 
   emitter.on(errorEvent, err => {
-    t.is(err.message, 'thrown')
+    t.strictEqual(err.message, 'thrown')
   })
 
   noThrow()
 })
 
-test('error thrown in errorAction handler should not cause call stack overflow', t => {
+test('error thrown in errorAction handler should not cause call stack overflow', () => {
   const emitter = new Emitter()
   const count = createEventAction<number, number>('count', input => emit => emit(input + 1))
 
@@ -107,24 +112,23 @@ test('error thrown in errorAction handler should not cause call stack overflow',
   })
 
   noThrow()
-  t.pass()
 })
 
-test('listen using type string', t => {
+test('listen using type string', () => {
   const emitter = new Emitter()
   const count = createEvent<number>('count')
   const minus = createEvent<number>('minus')
   const multiply = createEvent<{ a: number, b: number, result: number }>('multiply')
   emitter.on(count.type, (value) => {
-    t.is(value, 1)
+    t.strictEqual(value, 1)
   })
   emitter.addListener(minus.type, (value) => {
-    t.is(value, 2)
+    t.strictEqual(value, 2)
   })
-  emitter.once(multiply.type, ({ a, b, result }) => {
-    t.is(a, 2)
-    t.is(b, 3)
-    t.is(result, 6)
+  emitter.once(multiply.type, ({ a, b, result }: { a: number, b: number, result: number }) => {
+    t.strictEqual(a, 2)
+    t.strictEqual(b, 3)
+    t.strictEqual(result, 6)
   })
 
   emitter.emit(count(1, undefined))
@@ -132,21 +136,26 @@ test('listen using type string', t => {
   emitter.emit(multiply({ a: 2, b: 3, result: 6 }, undefined))
 })
 
-test('queue() will invoked once and move to the next listener', t => {
+test('queue() will invoked once and move to the next listener', () => {
   const emitter = new Emitter()
   const count = createEvent<number>('count')
-  t.plan(2)
+
+  let called = 0
   emitter.queue(count, c => {
-    t.is(c, 1)
+    t.strictEqual(c, 1)
+    ++called
   })
   emitter.queue('count', c => {
-    t.is(c, 2)
+    t.strictEqual(c, 2)
+    ++called
   })
   emitter.emit(count(1, undefined))
   emitter.emit(count(2, undefined))
+
+  t.strictEqual(called, 2)
 })
 
-test('queue(): calling remove() on subscription will prevent it from invoking', t => {
+test('queue(): calling remove() on subscription will prevent it from invoking', () => {
   const emitter = new Emitter()
   const count = createEvent<number>('count')
 
@@ -155,16 +164,16 @@ test('queue(): calling remove() on subscription will prevent it from invoking', 
   })
   sub.remove()
   emitter.emit(count(1, undefined))
-  t.pass()
 })
 
-test('queue(): calling remove() on queued subscription will prevent it from invoking', t => {
+test('queue(): calling remove() on queued subscription will prevent it from invoking', () => {
   const emitter = new Emitter()
   const count = createEvent<number>('count')
 
-  t.plan(1)
+  let called = 0
   emitter.queue(count, c => {
-    t.is(c, 1)
+    t.strictEqual(c, 1)
+    ++called
   })
   const sub = emitter.queue(count, () => {
     t.fail()
@@ -172,9 +181,11 @@ test('queue(): calling remove() on queued subscription will prevent it from invo
   sub.remove()
   emitter.emit(count(1, undefined))
   emitter.emit(count(2, undefined))
+
+  t.strictEqual(called, 1)
 })
 
-test('onAny() will listen to all events', t => {
+test('onAny() will listen to all events', () => {
   const emitter = new Emitter()
 
   let type = ''
@@ -185,10 +196,10 @@ test('onAny() will listen to all events', t => {
   emitter.emit({ type: 'x', payload: 1, meta: undefined })
   emitter.emit({ type: 'y', payload: 1, meta: undefined })
 
-  t.is(type, 'xy')
+  t.strictEqual(type, 'xy')
 })
 
-test('onAny() returns subscription for removing itself', t => {
+test('onAny() returns subscription for removing itself', () => {
   const emitter = new Emitter()
 
   let type = ''
@@ -200,10 +211,10 @@ test('onAny() returns subscription for removing itself', t => {
   sub.remove()
   emitter.emit({ type: 'y', payload: 1, meta: undefined })
 
-  t.is(type, 'x')
+  t.strictEqual(type, 'x')
 })
 
-test('onAny() returns subscription second remove is noop', t => {
+test('onAny() returns subscription second remove is noop', () => {
   const emitter = new Emitter()
 
   let type = ''
@@ -216,10 +227,10 @@ test('onAny() returns subscription second remove is noop', t => {
   sub.remove()
   emitter.emit({ type: 'y', payload: 1, meta: undefined })
 
-  t.is(type, 'x')
+  t.strictEqual(type, 'x')
 })
 
-test('onMissed() listens to all not listened events', t => {
+test('onMissed() listens to all not listened events', () => {
   const emitter = new Emitter()
 
   let type = ''
@@ -230,10 +241,10 @@ test('onMissed() listens to all not listened events', t => {
   emitter.emit({ type: 'x', payload: 1, meta: undefined })
   emitter.emit({ type: 'y', payload: 1, meta: undefined })
 
-  t.is(type, 'y')
+  t.strictEqual(type, 'y')
 })
 
-test('onMiss() returns subscription for removing itself', t => {
+test('onMiss() returns subscription for removing itself', () => {
   const emitter = new Emitter()
 
   let type = ''
@@ -245,10 +256,10 @@ test('onMiss() returns subscription for removing itself', t => {
   sub.remove()
   emitter.emit({ type: 'y', payload: 1, meta: undefined })
 
-  t.is(type, '')
+  t.strictEqual(type, '')
 })
 
-test('onMiss() returns subscription second remove is noop', t => {
+test('onMiss() returns subscription second remove is noop', () => {
   const emitter = new Emitter()
 
   let type = ''
@@ -261,5 +272,5 @@ test('onMiss() returns subscription second remove is noop', t => {
   sub.remove()
   emitter.emit({ type: 'y', payload: 1, meta: undefined })
 
-  t.is(type, '')
+  t.strictEqual(type, '')
 })

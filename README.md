@@ -1,9 +1,12 @@
-# FSA-Emitter
+# FSA Emitter
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][downloads-image]][downloads-url]
-[![Build status][travis-image]][travis-url]
-[![Coverage Status][coveralls-image]][coveralls-url]
+
+[![Circle CI][circleci-image]][circleci-url]
+[![Travis CI][travis-image]][travis-url]
+[![Codecov][codecov-image]][codecov-url]
+[![Coveralls Status][coveralls-image]][coveralls-url]
 
 [![Greenkeeper][greenkeeper-image]][greenkeeper-url]
 [![Semantic Release][semantic-release-image]][semantic-release-url]
@@ -277,27 +280,37 @@ const { command, emitter } = setupCommandTest(FlyCommand, { fuel: 10 })
 ## Contribute
 
 ```sh
-# right after fork
+# after fork and clone
 npm install
 
 # begin making changes
+git checkout -b <branch>
 npm run watch
 
+# after making change(s)
+git commit -m "<commit message>"
+git push
+
+# create PR
 ```
 
-[npm-image]: https://img.shields.io/npm/v/fsa-emitter.svg?style=flat
-[npm-url]: https://npmjs.org/package/fsa-emitter
-[downloads-image]: https://img.shields.io/npm/dm/fsa-emitter.svg?style=flat
-[downloads-url]: https://npmjs.org/package/fsa-emitter
-[travis-image]: https://img.shields.io/travis/unional/fsa-emitter/master.svg?style=flat
-[travis-url]: https://travis-ci.org/unional/fsa-emitter?branch=master
+[circleci-image]: https://circleci.com/gh/unional/fsa-emitter/tree/master.svg?style=shield
+[circleci-url]: https://circleci.com/gh/unional/fsa-emitter/tree/master
+[codecov-image]: https://codecov.io/gh/unional/fsa-emitter/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/unional/fsa-emitter
 [coveralls-image]: https://coveralls.io/repos/github/unional/fsa-emitter/badge.svg
 [coveralls-url]: https://coveralls.io/github/unional/fsa-emitter
-[greenkeeper-image]:https://badges.greenkeeper.io/unional/komondor.svg
-[greenkeeper-url]:https://greenkeeper.io/
-[semantic-release-image]:https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
-[semantic-release-url]:https://github.com/semantic-release/semantic-release
-[wallaby-image]:https://img.shields.io/badge/wallaby.js-configured-green.svg
-[wallaby-url]:https://wallabyjs.com
-[vscode-image]:https://img.shields.io/badge/vscode-ready-green.svg
-[vscode-url]:https://code.visualstudio.com/
+[downloads-image]: https://img.shields.io/npm/dm/fsa-emitter.svg?style=flat
+[downloads-url]: https://npmjs.org/package/fsa-emitter
+[greenkeeper-image]: https://badges.greenkeeper.io/unional/fsa-emitter.svg
+[greenkeeper-url]: https://greenkeeper.io/
+[npm-image]: https://img.shields.io/npm/v/fsa-emitter.svg?style=flat
+[npm-url]: https://npmjs.org/package/fsa-emitter
+[semantic-release-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
+[semantic-release-url]: https://github.com/semantic-release/semantic-release
+[travis-image]: https://img.shields.io/travis/unional/fsa-emitter/master.svg?style=flat
+[travis-url]: https://travis-ci.org/unional/fsa-emitter?branch=master
+[vscode-image]: https://img.shields.io/badge/vscode-ready-green.svg
+[vscode-url]: https://code.visualstudio.com/
+[wallaby-image]: https://img.shields.io/badge/wallaby.js-configured-green.svg
+[wallaby-url]: https://wallabyjs.com

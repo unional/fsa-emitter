@@ -1,8 +1,8 @@
-import { test } from 'ava'
+import t from 'assert'
 
 import { Command, setupCommandTest, TestEmitter } from './index'
 
-test('provides a TestEmitter', t => {
+test('provides a TestEmitter', () => {
   class TestCommand extends Command {
     run() {
       return
@@ -10,12 +10,12 @@ test('provides a TestEmitter', t => {
   }
   const { emitter } = setupCommandTest(TestCommand)
 
-  t.true(emitter instanceof TestEmitter)
+  t(emitter instanceof TestEmitter)
 })
 
-test('setupCommandTest gets completion support for context', t => {
+test('setupCommandTest gets completion support for context', () => {
   class TestCommand extends Command<{ foo: string }> {
-    foo: string
+    foo!: string
     run() {
       this.emitter.emit({ type: 'e', payload: this.foo, error: false, meta: undefined })
     }
@@ -23,7 +23,7 @@ test('setupCommandTest gets completion support for context', t => {
 
   const { command, emitter } = setupCommandTest(TestCommand, { foo: 'foo' })
   emitter.on('e', foo => {
-    t.is(foo, 'foo')
+    t.strictEqual(foo, 'foo')
   })
   command.run()
 })

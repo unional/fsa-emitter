@@ -20,7 +20,7 @@ export type CommandConstructor<Context extends CommandContext = CommandContext, 
  * Communication to UI is done through emitter.
  */
 export abstract class Command<Context = any> {
-  protected emitter: Emitter
+  protected emitter!: Emitter
   constructor(context: Context & CommandContext) {
     merge(this, context)
   }
