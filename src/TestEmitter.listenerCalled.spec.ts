@@ -1,22 +1,22 @@
-import { test } from 'ava';
+import t from 'assert'
 
 import { TestEmitter, errorEvent, createEvent } from './index';
 
 
-test('false when listener not triggered', t => {
+test('false when listener not triggered', () => {
   const emitter = new TestEmitter()
   emitter.on(errorEvent, () => ({}))
-  t.false(emitter.listenerCalled(errorEvent))
-  t.false(emitter.listenerCalled(errorEvent.type))
+  t(!emitter.listenerCalled(errorEvent))
+  t(!emitter.listenerCalled(errorEvent.type))
 })
 
-test('true when listener triggered', t => {
+test('true when listener triggered', () => {
   const emitter = new TestEmitter()
   const count = createEvent<number>('count')
   emitter.on(count, () => ({}))
-  t.false(emitter.listenerCalled(count))
+  t(!emitter.listenerCalled(count))
 
   emitter.emit(count(1, undefined))
-  t.true(emitter.listenerCalled(count))
-  t.true(emitter.listenerCalled(count.type))
+  t(emitter.listenerCalled(count))
+  t(emitter.listenerCalled(count.type))
 })

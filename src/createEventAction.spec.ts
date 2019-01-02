@@ -1,60 +1,62 @@
-import test from 'ava'
+import t from 'assert'
 
 import { createEventAction, Emitter, createScopedCreateEventAction } from './index'
 
-test('no input', t => {
+test('no input', () => {
   const noInput = createEventAction('noInput', () => emit => {
     emit(undefined)
   })
 
   const emitter = new Emitter()
   emitter.on(noInput, (payload) => {
-    t.is(payload, undefined)
+    t.strictEqual(payload, undefined)
   })
 
   noInput(emitter, undefined, undefined)
 })
 
-test('no emit', t => {
+test('no emit', () => {
   const noEmit = createEventAction('noEmit', () => () => { return })
   const emitter = new Emitter()
   emitter.on(noEmit, () => {
     t.fail('not called')
   })
   noEmit(emitter, undefined, undefined)
-  t.pass()
 })
 
-test('create event action', t => {
+test('create event action', () => {
   const minus = createEventAction<{ a: number, b: number }, { a: number, b: number, result: number }>('minus', ({ a, b }) => emit => {
     emit({ a, b, result: a + b })
   })
 
-  t.plan(3)
+  let called = false
   const emitter = new Emitter()
   emitter.on(minus, ({ a, b, result }) => {
-    t.is(a, 1)
-    t.is(b, 2)
-    t.is(result, 3)
+    t.strictEqual(a, 1)
+    t.strictEqual(b, 2)
+    t.strictEqual(result, 3)
+    called = true
   })
 
   minus(emitter, { a: 1, b: 2 }, undefined)
+
+  t.strictEqual(called, true)
 })
 
-test('create scoped createEventAction()', t => {
+test('create scoped createEventAction()', () => {
   const cva = createScopedCreateEventAction('a')
   const minus = cva('minus', () => () => { return })
-  t.is(minus.type, 'a/minus')
+  t.strictEqual(minus.type, 'a/minus')
 })
 
-test('match should type guard an action', t => {
+test('match should type guard an action', () => {
   const noop = createEventAction('noop', () => () => { return })
   const event = { type: 'noop', payload: undefined, meta: undefined }
 
-  t.true(noop.match(event))
+  t(noop.match(event))
 })
 
-// test('compose actions', t => {
+// test('compose actions', () => {
 //   const add = createEventAction<{ a: number, b: number }, { c: number }>('add', ({ a, b }) => emit => emit({ c: a + b }))
 
 //   const multiply = createEventAction<{ a: number, b: number }>('multiply', ({ a, b }) => emitter => {

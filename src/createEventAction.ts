@@ -13,14 +13,14 @@ export function createScopedCreateEventAction(scope: string): typeof createEvent
 export function createEventAction<Input = undefined, Payload = undefined, Meta = undefined>(type: string, action: (input: Input) => (emit: (payload: Payload) => void) => void): EventAction<Input, Payload, Meta> {
   return Object.assign(
     (emitter: Emitter, input: Input, meta: Meta) => {
-      function emit(payload) {
+      function emit(payload: any) {
         emitter.emit({ type, payload, meta, error: false })
       }
       action(input)(emit)
     },
     {
       type,
-      match(action): action is FSA<any, any> {
+      match(action: { type: string }): action is FSA<any, any> {
         return action.type === type
       }
     }

@@ -9,7 +9,7 @@ export interface Event<Payload, Meta> extends TypedEvent<Payload, Meta> {
   (payload: Payload, meta: Meta): FSA<Payload, Meta>
 }
 
-function defaultIsErrorPredicate(payload) { return payload instanceof Error }
+function defaultIsErrorPredicate(payload: any) { return payload instanceof Error }
 
 export function createScopedCreateEvent(scope: string): typeof createEvent {
   return (type) => createEvent(`${scope}/${type}`)
@@ -24,7 +24,7 @@ export function createEvent<Payload = undefined, Meta = undefined>(type: string,
     },
     {
       type,
-      match(event): event is FSA<Payload, Meta> {
+      match(event: { type: string }): event is FSA<Payload, Meta> {
         return event.type === type
       }
     })

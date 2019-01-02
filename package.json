@@ -2,80 +2,35 @@
   "name": "fsa-emitter",
   "version": "0.0.0-development",
   "description": "Emitter using Flux Standard Action",
-  "main": "dist-es5/index.js",
-  "module": "dist-es2015/index.js",
-  "typings": "dist-es5/index.d.ts",
-  "files": [
-    "dist-es5",
-    "dist-es2015"
+  "keywords": [
+    "javascript",
+    "typescript",
+    "utility"
   ],
-  "scripts": {
-    "build": "npm run clean && npm run build-es5 && npm run build-es2015",
-    "build-es2015": "tsc -p tsconfig.es2015.json",
-    "build-es5": "tsc -p tsconfig.es5.json",
-    "clean": "rimraf dist-es5 dist-es2015",
-    "dc": "npm run dependency-check",
-    "dependency-check": "dependency-check . --unused --no-dev -i flux-standard-action -i @types/fbemitter && dependency-check . --missing --no-dev",
-    "lint": "tslint -p tsconfig.json 'src/**/*.ts'",
-    "prepublishOnly": "npm run build",
-    "verify": "npm run lint && npm run coverage && npm run dependency-check",
-    "coverage": "nyc npm test",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "test": "npm run clean && tsc && ava",
-    "watch": "npm run clean && node scripts/watch.js",
-    "debug": "node scripts/debug.js",
-    "semantic-release": "semantic-release"
+  "homepage": "https://github.com/unional/fsa-emitter",
+  "bugs": {
+    "url": "https://github.com/unional/fsa-emitter/issues"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/unional/fsa-emitter.git"
   },
-  "keywords": [
-    "typescript",
-    "javascript",
-    "utility"
-  ],
-  "author": {
-    "name": "Homa Wong",
-    "email": "homawong@gmail.com",
-    "url": "https://github.com/unional"
-  },
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/unional/fsa-emitter/issues"
+  "author": {
+    "name": "Homa Wong (unional)",
+    "email": "homawong@gmail.com"
   },
-  "homepage": "https://github.com/unional/fsa-emitter#readme",
-  "ava": {
-    "files": [
-      "dist-es5/**/*.spec.js"
-    ],
-    "source": [
-      "scripts/*.js",
-      "dist-es5/**/*.js",
-      "*.json"
-    ]
-  },
-  "nyc": {
-    "exclude": [
-      "scripts",
-      "**/*.spec.*",
-      "**/fixtures/**/*",
-      "**/test/**/*"
-    ]
-  },
-  "devDependencies": {
-    "@types/node": "^9.6.6",
-    "assertron": "^5.0.0",
-    "ava": "^0.25.0",
-    "dependency-check": "^3.1.0",
-    "eslint": "^4.19.1",
-    "eslint-plugin-harmony": "^1.0.3",
-    "nyc": "^11.7.1",
-    "rimraf": "^2.6.2",
-    "semantic-release": "^15.1.7",
-    "tslint": "^5.9.1",
-    "tslint-config-unional": "^0.9.3",
-    "typescript": "^2.8.3"
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "rimraf lib",
+    "dc": "npm run dependency-check",
+    "dependency-check": "dependency-check . --unused --no-dev -i flux-standard-action -i @types/fbemitter && dependency-check . --missing --no-dev",
+    "lint": "tslint -p tsconfig.json",
+    "test": "jest",
+    "verify": "npm run lint && npm run build && npm run dependency-check && jest --coverage",
+    "watch": "jest --watch"
   },
   "dependencies": {
     "@types/fbemitter": "^2.0.32",
@@ -84,5 +39,10 @@
     "lodash.merge": "^4.6.1",
     "tersify": "^1.2.5",
     "unpartial": "^0.4.1"
+  },
+  "devDependencies": {
+    "@types/lodash.merge": "^4.6.4",
+    "@unional/devpkg-node": "^1.1.6",
+    "assertron": "^6.0.0"
   }
 }

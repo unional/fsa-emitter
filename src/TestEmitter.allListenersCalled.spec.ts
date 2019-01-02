@@ -1,33 +1,33 @@
-import { test } from 'ava';
+import t from 'assert'
 
 import { TestEmitter, errorEvent, createEvent } from './index';
 
 
-test('true when no listener', t => {
+test('true when no listener', () => {
   const emitter = new TestEmitter()
 
-  t.true(emitter.allListenersCalled())
+  t(emitter.allListenersCalled())
 })
 
-test('false when listener defined but not triggered', t => {
+test('false when listener defined but not triggered', () => {
   const emitter = new TestEmitter()
   emitter.on(errorEvent, () => ({}))
 
-  t.false(emitter.allListenersCalled())
+  t(!emitter.allListenersCalled())
 })
 
 
-test('true when 1 listener defined and triggered', t => {
+test('true when 1 listener defined and triggered', () => {
   const emitter = new TestEmitter()
   const count = createEvent<number>('count')
   emitter.on(count, () => ({}))
 
   emitter.emit(count(1, undefined))
 
-  t.true(emitter.allListenersCalled())
+  t(emitter.allListenersCalled())
 })
 
-test(`false when 2 listeners dfeind but only 1 triggered`, t => {
+test(`false when 2 listeners dfeind but only 1 triggered`, () => {
   const emitter = new TestEmitter()
   const count = createEvent<number>('count')
   const bound = createEvent<number>('bound')
@@ -36,9 +36,9 @@ test(`false when 2 listeners dfeind but only 1 triggered`, t => {
 
   emitter.emit(count(1, undefined))
 
-  t.false(emitter.allListenersCalled())
+  t(!emitter.allListenersCalled())
 
   emitter.emit(bound(1, undefined))
 
-  t.true(emitter.allListenersCalled())
+  t(emitter.allListenersCalled())
 })

@@ -24,7 +24,7 @@ export class TestEmitter extends Emitter {
     const type = typeof event === 'string' ? event : event.type
 
     this.calledListeners[type] = false
-    const wrap = (...args) => {
+    const wrap = (...args: any[]) => {
       this.calledListeners[type] = true;
       (listener as any)(...args)
     }
@@ -72,7 +72,7 @@ export class TestEmitter extends Emitter {
   }
 }
 
-function defaultMiss({ type, payload, meta }) {
+function defaultMiss({ type, payload, meta }: FluxStandardAction<any, any>) {
   console.error(`missed event:
 type: ${type}
 payload: ${tersify(payload, { maxLength: Infinity })}
