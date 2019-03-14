@@ -37,7 +37,7 @@
     "fbemitter": "^2.1.1",
     "flux-standard-action": "^2.0.2",
     "lodash.merge": "^4.6.1",
-    "tersify": "^1.2.5",
+    "tersify": "^2.0.3",
     "unpartial": "^0.5.0"
   },
   "devDependencies": {
