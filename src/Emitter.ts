@@ -11,13 +11,8 @@ export class Emitter {
   protected listenMisses: Function[] = []
   constructor() {
     this.emitter = new EventEmitter()
-    // const emit = this.emitter.emit
-    // this.emitter.emit = (eventType, ...data) => {
-    //   emit.call(this.emitter, eventType, ...data)
-
-    // }
   }
-  emit<Payload, Meta>({ type, payload, meta, error }: FSA<Payload, Meta>) {
+  emit<Payload, Meta>({ type, payload, meta, error }: FSA<string, Payload, Meta>) {
     this.emitter.emit(type as string, payload, meta, error)
     this.listenAlls.forEach(l => l({ type, payload, meta, error }))
     if (this.listenMisses.length > 0 && this.emitter.listeners(type).length === 0)
