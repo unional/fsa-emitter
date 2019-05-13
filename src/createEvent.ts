@@ -2,11 +2,11 @@ import { FSA } from 'flux-standard-action'
 
 export interface TypedEvent<Payload, Meta> {
   type: string
-  match(event: FSA<any, any>): event is FSA<Payload, Meta>
+  match(event: FSA<any, any, any>): event is FSA<string, Payload, Meta>
 }
 
 export interface Event<Payload, Meta> extends TypedEvent<Payload, Meta> {
-  (payload: Payload, meta: Meta): FSA<Payload, Meta>
+  (payload: Payload, meta: Meta): FSA<string, Payload, Meta>
 }
 
 function defaultIsErrorPredicate(payload: any) { return payload instanceof Error }
@@ -24,7 +24,7 @@ export function createEvent<Payload = undefined, Meta = undefined>(type: string,
     },
     {
       type,
-      match(event: { type: string }): event is FSA<Payload, Meta> {
+      match(event: { type: string }): event is FSA<string, Payload, Meta> {
         return event.type === type
       }
     })
