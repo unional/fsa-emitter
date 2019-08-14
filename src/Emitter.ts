@@ -70,7 +70,7 @@ export class Emitter {
     }
   }
 
-  onAny(listener: (fsa: FluxStandardAction<any>) => void) {
+  onAny(listener: (fsa: FluxStandardAction<any, any, any>) => void) {
     this.listenAlls.push(listener)
     return {
       remove: () => {
