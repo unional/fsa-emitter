@@ -20,7 +20,7 @@ export function createEventAction<Input = undefined, Payload = undefined, Meta =
     },
     {
       type,
-      match(action: { type: string }): action is FSA<any, any> {
+      match(action: { type: string }): action is FSA<any, any, any> {
         return action.type === type
       }
     }
