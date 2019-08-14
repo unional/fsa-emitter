@@ -48,7 +48,7 @@ jobs:
             - node_modules
       - run: yarn lint
       - run: yarn build
-      - run: yarn dc
+      - run: yarn dependency-check
       - run: yarn coverage
       - run: npx codecov
       - persist_to_workspace:
