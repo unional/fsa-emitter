@@ -12,10 +12,12 @@ import { errorEvent } from './errorEvent'
  */
 export class TestEmitter extends Emitter {
   private calledListeners: { [k: string]: boolean } = {}
-  constructor() {
-    super()
+  private defaultMiss: ({ type, payload, meta }: FluxStandardAction<any, any, any>) => void
+  constructor(protected log: { error(...args: any[]): void } = console) {
+    super(log)
 
-    this.listenMisses.push(defaultMiss)
+    this.defaultMiss = buildDefaultMiss(log)
+    this.listenMisses.push(this.defaultMiss)
   }
   addListener<Payload, Meta>(
     event: TypedEvent<Payload, Meta> | string,
@@ -45,7 +47,7 @@ export class TestEmitter extends Emitter {
       return this.listenedToEventMap(events)
   }
   onMissed(listener: (fsa: FluxStandardAction<any, any, any>) => void) {
-    if (this.listenMisses.length === 1 && this.listenMisses[0] === defaultMiss) {
+    if (this.listenMisses.length === 1 && this.listenMisses[0] === this.defaultMiss) {
       this.listenMisses.splice(0, 1)
     }
     return super.onMissed(listener)
@@ -71,9 +73,11 @@ export class TestEmitter extends Emitter {
   }
 }
 
-function defaultMiss({ type, payload, meta }: FluxStandardAction<any, any, any>) {
-  console.error(`missed event:
-type: ${type}
-payload: ${tersify(payload, { maxLength: Infinity })}
-meta: ${tersify(meta)}`)
+function buildDefaultMiss(log: { error: (...args: any[]) => void }) {
+  return function defaultMiss({ type, payload, meta }: FluxStandardAction<any, any, any>) {
+    log.error(`missed event:
+  type: ${type}
+  payload: ${tersify(payload, { maxLength: Infinity })}
+  meta: ${tersify(meta)}`)
+  }
 }

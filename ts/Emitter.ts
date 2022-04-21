@@ -10,7 +10,7 @@ export class Emitter {
   protected eventQueues: { [k: string]: AnyFunction[] } = {}
   protected listenAlls: AnyFunction[] = []
   protected listenMisses: AnyFunction[] = []
-  constructor() {
+  constructor(protected log: { error(...args: any[]): void } = console) {
     this.emitter = new EventEmitter()
   }
   emit<Payload, Meta>({ type, payload, meta, error }: FSA<string, Payload, Meta>) {
@@ -99,7 +99,7 @@ export class Emitter {
         listener(payload, meta, error)
       }
       catch (err) {
-        console.error('Error thrown in error event handler:', err)
+        this.log.error('Error thrown in error event handler:', err)
       }
     }
     return this.emitter.addListener(errorEvent.type, wrappedListener)
