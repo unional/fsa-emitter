@@ -1,21 +1,23 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "inlineSources": true,
+    "esModuleInterop": true,
     "lib": [
       "es2015"
     ],
-    "module": "commonjs",
     "moduleResolution": "node",
     "newLine": "LF",
-    "noImplicitAny": false,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "removeComments": false,
+    "noUnusedParameters": false,
+    "removeComments": true,
     "sourceMap": true,
-    "strictNullChecks": true
+    "strict": true,
+    "stripInternal": true,
+    "useDefineForClassFields": true
   },
+  "include": [
+    "typings"
+  ],
   "files": [
-    "src/index.ts"
+    "ts/index.ts"
   ]
 }

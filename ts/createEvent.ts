@@ -1,7 +1,7 @@
-import { FSA } from 'flux-standard-action';
+import { FSA } from 'flux-standard-action'
 
 export interface TypedEvent<Payload, Meta> {
-  type: string
+  type: string,
   match(event: FSA<any, any, any>): event is FSA<string, Payload, Meta>
 }
 
