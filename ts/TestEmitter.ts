@@ -1,9 +1,9 @@
-import { EventSubscription } from 'fbemitter';
-import { FluxStandardAction } from 'flux-standard-action';
-import { tersify } from 'tersify';
-import { TypedEvent } from './createEvent';
-import { Emitter } from './Emitter';
-import { errorEvent } from './errorEvent';
+import { EventSubscription } from 'fbemitter'
+import { FluxStandardAction } from 'flux-standard-action'
+import { tersify } from 'tersify'
+import { TypedEvent } from './createEvent'
+import { Emitter } from './Emitter'
+import { errorEvent } from './errorEvent'
 
 /**
  * Emitter used for testing.

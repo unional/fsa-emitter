@@ -1,6 +1,6 @@
 import t from 'assert'
 
-import { TestEmitter, errorEvent, createEvent } from './index';
+import { TestEmitter, errorEvent, createEvent } from './index'
 
 
 test('true when no listener', () => {

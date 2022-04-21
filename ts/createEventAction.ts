@@ -1,7 +1,6 @@
-// @ts-ignore
-import { FSA, FluxStandardAction } from 'flux-standard-action';
-import { TypedEvent } from './createEvent';
-import { Emitter } from './Emitter';
+import { FSA } from 'flux-standard-action'
+import { TypedEvent } from './createEvent'
+import { Emitter } from './Emitter'
 
 export interface EventAction<Input = undefined, Payload = undefined, Meta = undefined> extends TypedEvent<Payload, Meta> {
   (emitter: Emitter, input: Input, meta: Meta): void,

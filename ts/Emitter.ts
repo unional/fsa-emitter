@@ -1,14 +1,15 @@
 import { FSA, FluxStandardAction } from 'flux-standard-action'
 import { EventEmitter, EventSubscription } from 'fbemitter'
+import type { AnyFunction } from 'type-plus'
 
 import { TypedEvent } from './createEvent'
 import { errorEvent } from './errorEvent'
 
 export class Emitter {
   protected emitter: EventEmitter
-  protected eventQueues: { [k: string]: Function[] } = {}
-  protected listenAlls: Function[] = []
-  protected listenMisses: Function[] = []
+  protected eventQueues: { [k: string]: AnyFunction[] } = {}
+  protected listenAlls: AnyFunction[] = []
+  protected listenMisses: AnyFunction[] = []
   constructor() {
     this.emitter = new EventEmitter()
   }
@@ -30,7 +31,7 @@ export class Emitter {
       try {
         listener(payload, meta, error)
       }
-      catch (err) {
+      catch (err: any) {
         this.emit(errorEvent(err, undefined))
       }
     }

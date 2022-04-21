@@ -12,5 +12,10 @@
     "dist-es5": true,
     "**/node_modules": true,
     "**/bower_components": true
-  }
+  },
+  "cSpell.words": [
+    "fbemitter",
+    "tersify",
+    "unpartial"
+  ]
 }

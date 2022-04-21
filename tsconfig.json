@@ -1,14 +1,18 @@
 {
-  "extends": "./tsconfig.build.json",
+  "extends": "./tsconfig.esm.json",
   "compilerOptions": {
-    "plugins": [
-      {
-        "name": "tslint-language-service"
-      }
-    ]
+    "noEmit": true
   },
   "include": [
-    "src",
+    "ts",
     "typings"
-  ]
+  ],
+  "typedocOptions": {
+    "customTitle": "FSA style emitter",
+    "customTitleLink": "https://github.com/unional/fsa-emitter",
+    "entryPoints": [
+      "ts/index.ts"
+    ],
+    "out": "docs"
+  }
 }

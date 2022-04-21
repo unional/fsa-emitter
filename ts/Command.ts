@@ -1,5 +1,5 @@
-import merge from 'lodash.merge';
-import { Emitter } from './Emitter';
+import merge from 'lodash.merge'
+import { Emitter } from './Emitter'
 
 // import { LogPresenter, HelpPresenter } from './Presenter'
 
