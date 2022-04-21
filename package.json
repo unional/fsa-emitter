@@ -52,7 +52,6 @@
     "@types/fbemitter": "^2.0.32",
     "fbemitter": "^3.0.0",
     "flux-standard-action": "^2.1.2",
-    "lodash.merge": "^4.6.2",
     "tersify": "^3.8.3",
     "type-plus": "^4.9.0"
   },
