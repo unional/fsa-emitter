@@ -37,7 +37,7 @@
     "depcheck": "yarn dependency-check",
     "dependency-check": "run-p dependency-check:unused dependency-check:missing",
     "dependency-check:missing": "dependency-check . --missing --no-dev",
-    "dependency-check:unused": "dependency-check . --unused --no-dev -i typescript",
+    "dependency-check:unused": "dependency-check . --unused --no-dev -i flux-standard-action -i @types/fbemitter -i type-plus",
     "lint": "eslint --ext=ts,js .",
     "nuke": "yarn clean && rimraf node_modules",
     "release": "npx semantic-release",

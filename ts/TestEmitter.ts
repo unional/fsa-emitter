@@ -68,7 +68,9 @@ export class TestEmitter extends Emitter {
     return this.listenedToEventArray(keys.map(k => events[k]))
   }
 
-  protected addErrorEventListener<Payload, Meta>(listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
+  protected addErrorEventListener<Payload, Meta>(
+    listener: (payload: Payload, meta: Meta, error: boolean) => void
+  ): EventSubscription {
     return this.emitter.addListener(errorEvent.type, listener)
   }
 }

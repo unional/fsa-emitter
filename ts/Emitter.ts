@@ -19,10 +19,13 @@ export class Emitter {
     if (this.listenMisses.length > 0 && this.emitter.listeners(type).length === 0)
       this.listenMisses.forEach(l => l({ type, payload, meta, error }))
   }
-
+  /**
+   * @param event TypedEvent created from `createEvent` or the event type in string.
+   */
   addListener<Payload, Meta>(
     event: TypedEvent<Payload, Meta> | string,
-    listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
+    listener: (payload: Payload, meta: Meta, error: boolean) => void
+  ): EventSubscription {
     const type = typeof event === 'string' ? event : event.type
     if (type === errorEvent.type)
       return this.addErrorEventListener(listener)
@@ -37,17 +40,26 @@ export class Emitter {
     }
     return this.emitter.addListener(type, wrappedListener)
   }
-  on<Payload, Meta>(event: TypedEvent<Payload, Meta> | string, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
+  on<Payload, Meta>(
+    event: TypedEvent<Payload, Meta> | string,
+    listener: (payload: Payload, meta: Meta, error: boolean) => void
+  ): EventSubscription {
     return this.addListener(event, listener)
   }
-  once<Payload, Meta>(event: TypedEvent<Payload, Meta> | string, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
+  once<Payload, Meta>(
+    event: TypedEvent<Payload, Meta> | string,
+    listener: (payload: Payload, meta: Meta, error: boolean) => void
+  ): EventSubscription {
     const type = typeof event === 'string' ? event : event.type
     return this.emitter.once(type, listener)
   }
   /**
    * Gets into a queue and listen to one event.
    */
-  queue<Payload, Meta>(event: TypedEvent<Payload, Meta> | string, listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
+  queue<Payload, Meta>(
+    event: TypedEvent<Payload, Meta> | string,
+    listener: (payload: Payload, meta: Meta, error: boolean) => void
+  ): EventSubscription {
     const type = typeof event === 'string' ? event : event.type
     const queue = this.eventQueues[type] = this.eventQueues[type] || []
     const wrap = (payload: Payload, meta: Meta, error: boolean) => {
@@ -93,7 +105,9 @@ export class Emitter {
     }
   }
 
-  protected addErrorEventListener<Payload, Meta>(listener: (payload: Payload, meta: Meta, error: boolean) => void): EventSubscription {
+  protected addErrorEventListener<Payload, Meta>(
+    listener: (payload: Payload, meta: Meta, error: boolean) => void
+  ): EventSubscription {
     const wrappedListener = (payload: Payload, meta: Meta, error: boolean) => {
       try {
         listener(payload, meta, error)

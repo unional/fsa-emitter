@@ -4,11 +4,11 @@ import { isFSA, isError } from 'flux-standard-action'
 import { createEvent, createScopedCreateEvent } from './index'
 
 test('empty eventCreator creates FSA compliant action', () => {
-  const blip = createEvent('blip')
+  const beep = createEvent('beep')
 
   // want undefined parameters optional
   // waiting for https://github.com/Microsoft/TypeScript/issues/12400
-  t(isFSA(blip(undefined, undefined)))
+  t(isFSA(beep(undefined, undefined)))
 })
 
 test('eventCreator with payload creates FSA compliant action', () => {
