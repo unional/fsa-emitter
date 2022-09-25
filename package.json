@@ -69,7 +69,7 @@
     "@types/lodash.merge": "^4.6.6",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@unional/fixture": "^2.0.0",
-    "assertron": "^9.0.4",
+    "assertron": "^10.0.0",
     "dependency-check": "^4.1.0",
     "eslint": "^8.11.0",
     "eslint-plugin-harmony": "^6.0.0",
