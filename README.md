@@ -21,6 +21,10 @@ and are not convenient.
 This library addresses this issue by emitting and consuming events using a standard format,
 and provides IDE type support, so they can be consumed easily.
 
+[@unional/events-plus] is the spiritual successor of this package.
+It works with multiple event emitters with similar API.
+Feel free to check it out.
+
 ## Best practice
 
 One of the benefits of using events is decoupling.
@@ -288,6 +292,7 @@ git push
 # create PR
 ```
 
+[@unional/events-plus]: https://github.com/unional/events-plus
 [codecov-image]: https://codecov.io/gh/unional/fsa-emitter/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/unional/fsa-emitter
 [downloads-image]: https://img.shields.io/npm/dm/fsa-emitter.svg?style=flat
