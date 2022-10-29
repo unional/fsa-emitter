@@ -3,29 +3,23 @@
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][downloads-image]][downloads-url]
 
-[![Circle CI][circleci-image]][circleci-url]
-[![Travis CI][travis-image]][travis-url]
+[![GitHub NodeJS][github-nodejs]][github-action-url]
 [![Codecov][codecov-image]][codecov-url]
-[![Coveralls Status][coveralls-image]][coveralls-url]
-
-[![Greenkeeper][greenkeeper-image]][greenkeeper-url]
 [![Semantic Release][semantic-release-image]][semantic-release-url]
-
 [![Visual Studio Code][vscode-image]][vscode-url]
-[![Wallaby.js][wallaby-image]][wallaby-url]
 
-EventEmitter in FSA style.
+`EventEmitter` in FSA style.
 
 When dealing with event, I find myself need to remember the name of the event,
 and the parameters each event has.
 
-The person who defines the events and the person who consumes the events can be two different person.
+The person who defines the events and the person who consumes the events can be two different people.
 
 This implicit knowledge coupling relies on communication and documentation that are prone to error,
 and are not convenient.
 
 This library addresses this issue by emitting and consuming events using a standard format,
-and provides IDE type support so they can be consumed easily.
+and provides IDE type support, so they can be consumed easily.
 
 ## Best practice
 
@@ -68,7 +62,7 @@ npm install fsa-emitter
 `Emitter` uses [`FluxStandardAction`](https://github.com/acdlite/flux-standard-action) as the standard event format.
 
 Another key difference between `Emitter` and NodeJS `EventEmitter` is that `Emitter` will capture any error thrown in listener and send it to `console.error()`.
-This avoid any listener code throws error and break the event emitting logic.
+This avoids any listener code throws error and break the event emitting logic.
 
 To create event, use one of the helper methods below:
 
@@ -188,16 +182,16 @@ const fly = new FlyCommand({ emitter: new Emitter(), fuel: 10 })
 fly.run()
 ```
 
-## TestEmitter
+## `TestEmitter`
 
-`TestEmitter` can be used as a drop in replacement as `Emitter` during test.
+`TestEmitter` can be used as a drop-in replacement as `Emitter` during test.
 
 The difference between `TestEmitter` and `Emitter` is that `TestEmitter` will not capture errors thrown in listeners.
 This make it more suitable to use during testing so that you can detect any error thrown during the test.
 
 Also, it provides some additional methods:
 
-### listenerCalled(event: TypedEvent | string): boolean
+### `listenerCalled(event: TypedEvent | string): boolean`
 
 ```ts
 import { TestEmitter, createEvent } from 'fsa-emitter'
@@ -212,7 +206,7 @@ t.true(emitter.listenerCalled(count))
 t.true(emitter.listenerCalled(count.type))
 ```
 
-### allListenersCalled(): boolean
+### `allListenersCalled(): boolean`
 
 ```ts
 import { TestEmitter, createEvent } from 'fsa-emitter'
@@ -233,7 +227,7 @@ emitter.emit(bound(1, undefined))
 t.true(emitter.allListenersCalled())
 ```
 
-### listenedTo(events: (TypedEvent | string)[] | { [k]: TypedEvent })
+### `listenedTo(events: (TypedEvent | string)[] | { [k]: TypedEvent })`
 
 ```ts
 import { TestEmitter, createEvent } from 'fsa-emitter'
@@ -253,7 +247,7 @@ emitter.listenedTo({ bound }) // false
 emitter.listenedTo([ 'bound' ]) // false
 ```
 
-## setupCommandTest(Command, context?)
+## `setupCommandTest(Command, context?)`
 
 `setupCommandTest()` is a simple helper to create a `TestEmitter` for the command to run with.
 The same completion support is available as in the `Command` constructor.
@@ -294,23 +288,15 @@ git push
 # create PR
 ```
 
-[circleci-image]: https://circleci.com/gh/unional/fsa-emitter/tree/master.svg?style=shield
-[circleci-url]: https://circleci.com/gh/unional/fsa-emitter/tree/master
 [codecov-image]: https://codecov.io/gh/unional/fsa-emitter/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/unional/fsa-emitter
-[coveralls-image]: https://coveralls.io/repos/github/unional/fsa-emitter/badge.svg
-[coveralls-url]: https://coveralls.io/github/unional/fsa-emitter
 [downloads-image]: https://img.shields.io/npm/dm/fsa-emitter.svg?style=flat
 [downloads-url]: https://npmjs.org/package/fsa-emitter
-[greenkeeper-image]: https://badges.greenkeeper.io/unional/fsa-emitter.svg
-[greenkeeper-url]: https://greenkeeper.io/
+[github-nodejs]: https://github.com/unional/fsa-emitter/workflows/nodejs/badge.svg
+[github-action-url]: https://github.com/unional/fsa-emitter/actions
 [npm-image]: https://img.shields.io/npm/v/fsa-emitter.svg?style=flat
 [npm-url]: https://npmjs.org/package/fsa-emitter
 [semantic-release-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
 [semantic-release-url]: https://github.com/semantic-release/semantic-release
-[travis-image]: https://img.shields.io/travis/unional/fsa-emitter/master.svg?style=flat
-[travis-url]: https://travis-ci.org/unional/fsa-emitter?branch=master
 [vscode-image]: https://img.shields.io/badge/vscode-ready-green.svg
 [vscode-url]: https://code.visualstudio.com/
-[wallaby-image]: https://img.shields.io/badge/wallaby.js-configured-green.svg
-[wallaby-url]: https://wallabyjs.com
