@@ -74,7 +74,7 @@
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
     "@unional/fixture": "^3.2.6",
-    "assertron": "^10.0.1",
+    "assertron": "^11.0.0",
     "dependency-check": "^4.1.0",
     "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
