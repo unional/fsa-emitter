@@ -18,7 +18,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.41.0
   '@typescript-eslint/parser': ^5.41.0
   '@unional/fixture': ^3.2.6
-  assertron: ^10.0.1
+  assertron: ^11.0.0
   dependency-check: ^4.1.0
   eslint: ^8.26.0
   eslint-config-prettier: ^8.5.0
@@ -66,7 +66,7 @@ devDependencies:
   '@typescript-eslint/eslint-plugin': 5.41.0_huremdigmcnkianavgfk3x6iou
   '@typescript-eslint/parser': 5.41.0_wyqvi574yv7oiwfeinomdzmc3m
   '@unional/fixture': 3.2.6
-  assertron: 10.0.1
+  assertron: 11.0.1
   dependency-check: 4.1.0
   eslint: 8.26.0
   eslint-config-prettier: 8.5.0_eslint@8.26.0
@@ -2471,8 +2471,8 @@ packages:
     resolution: {integrity: sha512-BSHWgDSAiKs50o2Re8ppvp3seVHXSRM44cdSsT9FfNEUUZLOGWVCsiWaRPWM1Znn+mqZ1OfVZ3z3DWEzSp7hRA==}
     dev: false
 
-  /assertron/10.0.1:
-    resolution: {integrity: sha512-C1Y3kBcbuQC4cnWP7yALh2HLXZkWCSA3J4Zv9Cis+ii0oracI2cidXPrkRHvySJewHpuDKD4NFypaNm1wVc7gg==}
+  /assertron/11.0.1:
+    resolution: {integrity: sha512-D1U7weslbYgIoItGhuRqasdvZtU/1dtO9cmeMhuUbcNzd6Zztp3mlNlUF/EtZBfgjSFLjgUhBxw5uabsDR/b8A==}
     engines: {node: '>= 10'}
     dependencies:
       is-promise: 4.0.0
