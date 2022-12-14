@@ -55,7 +55,7 @@
     "fbemitter": "^3.0.0",
     "flux-standard-action": "^2.1.2",
     "tersify": "^3.10.5",
-    "type-plus": "^4.14.1"
+    "type-plus": "^5.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",
