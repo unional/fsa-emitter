@@ -37,7 +37,7 @@ specifiers:
   satisfier: ^5.4.2
   size-limit: ^8.1.0
   tersify: ^3.10.5
-  type-plus: ^4.14.1
+  type-plus: ^5.0.0
   typedoc: ^0.23.19
   typedoc-plugin-extras: ^2.3.0
   typescript: ^4.8.4
@@ -47,7 +47,7 @@ dependencies:
   fbemitter: 3.0.0
   flux-standard-action: 2.1.2
   tersify: 3.10.5
-  type-plus: 4.14.1
+  type-plus: 5.0.0
 
 devDependencies:
   '@babel/core': 7.19.6
@@ -6571,6 +6571,13 @@ packages:
       is-buffer: 2.0.5
       unpartial: 1.0.4
 
+  /tersify/3.11.1:
+    resolution: {integrity: sha512-W/Kv1z+cgDRsI10p9CyCZJ+gopPUVOz1/h7OPntr6D52iIHQTbsg40MBUoaG82q8IgD/GKoWhoujg/rOxQW7SA==}
+    dependencies:
+      acorn: 8.8.1
+      is-buffer: 2.0.5
+      unpartial: 1.0.4
+
   /test-exclude/6.0.0:
     resolution: {integrity: sha512-cAGWPIyOHU6zlmg88jwm7VRyXnMN7iV68OGAbYDk/Mh/xC/pzVPlQtY6ngoIH/5/tciuhGfvESU8GrHrcxD56w==}
     engines: {node: '>=8'}
@@ -6752,8 +6759,16 @@ packages:
   /type-plus/4.14.1:
     resolution: {integrity: sha512-Xk6qb+HILmW+03NNMMk7UiUQYroEu9ta36JOZNZX003AYRhWf8+sdE2HPf/p1DIK0/FpjzHWfRNZsIEI0+oJIA==}
     dependencies:
-      tersify: 3.10.5
+      tersify: 3.11.1
       unpartial: 1.0.4
+    dev: true
+
+  /type-plus/5.0.0:
+    resolution: {integrity: sha512-nKp5pOQDldmR9BdEjLplLFwiXTVhOK2kReBSgVJ65URDLXCqENYzVDCONaExADIIc1CAGzvzTkB0TUgMAWR2qQ==}
+    dependencies:
+      tersify: 3.11.1
+      unpartial: 1.0.4
+    dev: false
 
   /typedoc-plugin-extras/2.3.0_typedoc@0.23.19:
     resolution: {integrity: sha512-XjzutqICAkSpl1vhyloYfd35mn0U6WwOQ7BttRkwGhmBQs/qFLz2K+AU0/lj2Cx4WY6AqVr4c/PzFbqI4fACqw==}
