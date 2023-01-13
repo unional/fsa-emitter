@@ -33,7 +33,7 @@ specifiers:
   jest-watch-toggle-config: ^2.0.1
   jest-watch-typeahead: ^2.2.0
   npm-run-all: ^4.1.5
-  rimraf: ^3.0.2
+  rimraf: ^4.0.0
   satisfier: ^5.4.2
   size-limit: ^8.1.0
   tersify: ^3.10.5
@@ -79,7 +79,7 @@ devDependencies:
   jest-watch-toggle-config: 2.0.1_fy2l3fwjcr35i4icy7c53hx2di
   jest-watch-typeahead: 2.2.0_jest@29.2.2
   npm-run-all: 4.1.5
-  rimraf: 3.0.2
+  rimraf: 4.0.4
   satisfier: 5.4.2
   size-limit: 8.1.0
   typedoc: 0.23.19_typescript@4.8.4
@@ -6120,6 +6120,12 @@ packages:
     hasBin: true
     dependencies:
       glob: 7.2.3
+    dev: true
+
+  /rimraf/4.0.4:
+    resolution: {integrity: sha512-R0hoVr9xTwemarQjoWlNt/nb5dEGVTBhVdkRmEX2zEkT8T6onH0XKiGjuaC7rNNj/gYzY2p4NVRJ3sjO1ascHQ==}
+    engines: {node: '>=14'}
+    hasBin: true
     dev: true
 
   /run-parallel/1.2.0:
