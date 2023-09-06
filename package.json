@@ -67,7 +67,7 @@
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
     "@rushstack/eslint-patch": "^1.2.0",
-    "@size-limit/preset-small-lib": "^8.1.0",
+    "@size-limit/preset-small-lib": "^9.0.0",
     "@types/jest": "^29.2.0",
     "@types/lodash.merge": "^4.6.7",
     "@types/node": "~18.16.0",
