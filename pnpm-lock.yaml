@@ -21,8 +21,8 @@ importers:
         specifier: ^3.10.5
         version: 3.12.1
       type-plus:
-        specifier: ^6.0.0
-        version: 6.8.1
+        specifier: ^7.0.0
+        version: 7.6.2
     devDependencies:
       '@babel/core':
         specifier: ^7.19.6
