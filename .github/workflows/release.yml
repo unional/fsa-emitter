@@ -8,6 +8,6 @@ jobs:
     uses: unional/.github/.github/workflows/pnpm-verify-linux.yml@main
 
   release:
-    uses: unional/.github/.github/workflows/pnpm-release-semantic.yml@main
+    uses: unional/.github/.github/workflows/pnpm-release-changeset.yml@main
     needs: code
     secrets: inherit
