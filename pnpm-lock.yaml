@@ -18,8 +18,8 @@ importers:
         specifier: ^2.1.2
         version: 2.1.2
       tersify:
-        specifier: ^3.10.5
-        version: 3.12.1
+        specifier: ^4.0.0
+        version: 4.0.0
       type-plus:
         specifier: ^7.0.0
         version: 7.6.2
@@ -3049,6 +3049,9 @@ packages:
 
   tersify@3.12.1:
     resolution: {integrity: sha512-VwzXGHZSOB4T27s4uvh9v8FYrNXyfVz0nBQi28TDwrZoQwT8ZJUp1W2Ff73ekN07stJSb0D+pr6iXeNeFqTI6Q==}
+
+  tersify@4.0.0:
+    resolution: {integrity: sha512-9owLpXB5uy7eMMF+QeMKJXyKNoeJPlEpq1wNzh3I8I52joouTqLqGqir/XiVMoUxLYZxZ6WGdZVzWHgxRu4TBQ==}
 
   test-exclude@6.0.0:
     resolution: {integrity: sha512-cAGWPIyOHU6zlmg88jwm7VRyXnMN7iV68OGAbYDk/Mh/xC/pzVPlQtY6ngoIH/5/tciuhGfvESU8GrHrcxD56w==}
@@ -6807,6 +6810,12 @@ snapshots:
   supports-preserve-symlinks-flag@1.0.0: {}
 
   tersify@3.12.1:
+    dependencies:
+      acorn: 8.16.0
+      is-buffer: 2.0.5
+      unpartial: 1.0.5
+
+  tersify@4.0.0:
     dependencies:
       acorn: 8.16.0
       is-buffer: 2.0.5
