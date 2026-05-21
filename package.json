@@ -93,7 +93,7 @@
 		"satisfier": "^5.4.2",
 		"size-limit": "^8.1.0",
 		"typedoc": "^0.28.0",
-		"typedoc-plugin-extras": "^2.3.0",
+		"typedoc-plugin-extras": "^4.0.0",
 		"typescript": "^5.0.0"
 	},
 	"packageManager": "pnpm@11.1.3"
