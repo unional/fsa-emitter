@@ -56,7 +56,7 @@
 		"@types/fbemitter": "^2.0.32",
 		"fbemitter": "^3.0.0",
 		"flux-standard-action": "^2.1.2",
-		"tersify": "^3.10.5",
+		"tersify": "^4.0.0",
 		"type-plus": "^7.0.0"
 	},
 	"devDependencies": {
