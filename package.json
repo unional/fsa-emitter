@@ -9,13 +9,13 @@
 		"eventemitter3",
 		"utility"
 	],
-	"homepage": "https://github.com/unional/fsa-emitter",
+	"homepage": "https://github.com/cyberuni/fsa-emitter",
 	"bugs": {
-		"url": "https://github.com/unional/fsa-emitter/issues"
+		"url": "https://github.com/cyberuni/fsa-emitter/issues"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/unional/fsa-emitter.git"
+		"url": "https://github.com/cyberuni/fsa-emitter.git"
 	},
 	"license": "MIT",
 	"author": {

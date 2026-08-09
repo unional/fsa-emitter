@@ -1,3 +1,6 @@
 allowBuilds:
   esbuild: true
   fsevents: true
+  # Added: pnpm 11 turns an unapproved build script into a non-zero exit
+  # (ERR_PNPM_IGNORED_BUILDS), which is what has kept every run red since #209.
+  unrs-resolver: true
