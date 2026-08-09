@@ -5,7 +5,6 @@
 
 [![GitHub NodeJS][github-nodejs]][github-action-url]
 [![Codecov][codecov-image]][codecov-url]
-[![Semantic Release][semantic-release-image]][semantic-release-url]
 [![Visual Studio Code][vscode-image]][vscode-url]
 
 `EventEmitter` in FSA style.
@@ -293,15 +292,13 @@ git push
 ```
 
 [@unional/events-plus]: https://github.com/unional/events-plus
-[codecov-image]: https://codecov.io/gh/unional/fsa-emitter/branch/master/graph/badge.svg
-[codecov-url]: https://codecov.io/gh/unional/fsa-emitter
+[codecov-image]: https://codecov.io/gh/cyberuni/fsa-emitter/branch/main/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/cyberuni/fsa-emitter
 [downloads-image]: https://img.shields.io/npm/dm/fsa-emitter.svg?style=flat
 [downloads-url]: https://npmjs.org/package/fsa-emitter
-[github-nodejs]: https://github.com/unional/fsa-emitter/workflows/nodejs/badge.svg
-[github-action-url]: https://github.com/unional/fsa-emitter/actions
+[github-nodejs]: https://github.com/cyberuni/fsa-emitter/actions/workflows/release.yml/badge.svg
+[github-action-url]: https://github.com/cyberuni/fsa-emitter/actions
 [npm-image]: https://img.shields.io/npm/v/fsa-emitter.svg?style=flat
 [npm-url]: https://npmjs.org/package/fsa-emitter
-[semantic-release-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
-[semantic-release-url]: https://github.com/semantic-release/semantic-release
 [vscode-image]: https://img.shields.io/badge/vscode-ready-green.svg
 [vscode-url]: https://code.visualstudio.com/
