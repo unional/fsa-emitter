@@ -1,0 +1,8 @@
+{
+	"recommendations": [
+		"biomejs.biome",
+		"davidanson.vscode-markdownlint",
+		"editorconfig.editorconfig",
+		"unional.vscode-sort-package-json"
+	]
+}

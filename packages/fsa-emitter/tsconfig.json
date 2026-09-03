@@ -1,0 +1,24 @@
+{
+	"compilerOptions": {
+		"declaration": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"lib": ["ES2020"],
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"newLine": "LF",
+		"noEmit": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": false,
+		"skipLibCheck": true,
+		"strict": true,
+		"stripInternal": true,
+		"target": "ES2020",
+		"useDefineForClassFields": true,
+		// TypeScript 7 no longer pulls every @types/* package into the global scope
+		// on its own, so the ambient ones this package relies on are named here.
+		// vitest/globals supplies `test`, matching `globals: true`.
+		"types": ["node", "vitest/globals"]
+	},
+	"include": ["ts", "tsdown.config.ts", "vitest.config.ts"]
+}
