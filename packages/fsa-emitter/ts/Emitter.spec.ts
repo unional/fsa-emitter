@@ -1,6 +1,6 @@
 import t from 'node:assert'
 
-import { createEvent, createEventAction, Emitter, errorEvent } from './index'
+import { createEvent, createEventAction, Emitter, errorEvent } from './index.js'
 
 test('addListener(): listener(payload) is typed', () => {
 	const emitter = new Emitter()

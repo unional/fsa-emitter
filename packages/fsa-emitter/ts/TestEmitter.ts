@@ -1,9 +1,9 @@
 import type { EventSubscription } from 'fbemitter'
 import type { FluxStandardAction } from 'flux-standard-action'
 import { tersify } from 'tersify'
-import type { TypedEvent } from './createEvent'
-import { Emitter } from './Emitter'
-import { errorEvent } from './errorEvent'
+import type { TypedEvent } from './createEvent.js'
+import { Emitter } from './Emitter.js'
+import { errorEvent } from './errorEvent.js'
 
 /**
  * Emitter used for testing.

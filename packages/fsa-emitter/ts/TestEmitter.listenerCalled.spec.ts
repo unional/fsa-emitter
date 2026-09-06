@@ -1,6 +1,6 @@
 import t from 'node:assert'
 
-import { createEvent, errorEvent, TestEmitter } from './index'
+import { createEvent, errorEvent, TestEmitter } from './index.js'
 
 test('false when listener not triggered', () => {
 	const emitter = new TestEmitter()

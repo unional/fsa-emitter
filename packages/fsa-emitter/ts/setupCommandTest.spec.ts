@@ -1,7 +1,7 @@
 import t from 'node:assert'
-import type { Emitter } from './Emitter'
+import type { Emitter } from './Emitter.js'
 
-import { Command, setupCommandTest, TestEmitter } from './index'
+import { Command, setupCommandTest, TestEmitter } from './index.js'
 
 test('provides a TestEmitter', () => {
 	class TestCommand extends Command {
