@@ -1,5 +1,5 @@
 import t from 'node:assert'
-import { createEvent, TestEmitter } from './index'
+import { createEvent, TestEmitter } from './index.js'
 
 test('no event returns true', () => {
 	const emitter = new TestEmitter()

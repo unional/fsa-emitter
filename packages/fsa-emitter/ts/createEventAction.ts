@@ -1,6 +1,6 @@
 import type { FSA } from 'flux-standard-action'
-import type { TypedEvent } from './createEvent'
-import type { Emitter } from './Emitter'
+import type { TypedEvent } from './createEvent.js'
+import type { Emitter } from './Emitter.js'
 
 export interface EventAction<Input = undefined, Payload = undefined, Meta = undefined>
 	extends TypedEvent<Payload, Meta> {

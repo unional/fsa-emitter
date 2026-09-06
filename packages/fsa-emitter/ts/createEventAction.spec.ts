@@ -1,6 +1,6 @@
 import t from 'node:assert'
 
-import { createEventAction, createScopedCreateEventAction, Emitter } from './index'
+import { createEventAction, createScopedCreateEventAction, Emitter } from './index.js'
 
 test('no input', () => {
 	const noInput = createEventAction('noInput', () => (emit) => {

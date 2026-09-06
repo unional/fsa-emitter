@@ -1,7 +1,7 @@
 import t from 'node:assert'
 import a from 'assertron'
 
-import { createEvent, createEventAction, errorEvent, TestEmitter } from './index'
+import { createEvent, createEventAction, errorEvent, TestEmitter } from './index.js'
 
 test('error thrown in listener is thrown', () => {
 	const emitter = new TestEmitter()

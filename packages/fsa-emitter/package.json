@@ -23,18 +23,22 @@
 		"email": "homawong@gmail.com"
 	},
 	"sideEffects": false,
-	"main": "cjs/index.js",
-	"typings": "cjs/index.d.ts",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./esm/index.d.ts",
+			"default": "./esm/index.js"
+		},
+		"./package.json": "./package.json"
+	},
 	"files": [
-		"cjs",
 		"esm",
-		"ts",
 		"!**/*.{accept,integrate,spec,system,test,unit}.*"
 	],
 	"scripts": {
 		"build": "tsdown",
 		"build:watch": "tsdown --watch",
-		"clean": "rimraf cjs coverage esm *.tsbuildinfo",
+		"clean": "rimraf coverage esm *.tsbuildinfo",
 		"coverage": "vitest run --coverage",
 		"depcheck": "depcheck",
 		"nuke": "pnpm clean && rimraf node_modules",

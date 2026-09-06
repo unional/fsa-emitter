@@ -1,12 +1,17 @@
-import { EventEmitter, type EventSubscription } from 'fbemitter'
+import fbemitter, { type EventEmitter as EventEmitterType, type EventSubscription } from 'fbemitter'
 import type { FluxStandardAction, FSA } from 'flux-standard-action'
 import type { AnyFunction } from 'type-plus'
 
-import type { TypedEvent } from './createEvent'
-import { errorEvent } from './errorEvent'
+import type { TypedEvent } from './createEvent.js'
+import { errorEvent } from './errorEvent.js'
+
+// `fbemitter` is CommonJS and builds its exports object through a local
+// variable, so Node's ESM loader cannot detect `EventEmitter` as a named
+// export. Reaching it off the default import is what works from real ESM.
+const { EventEmitter } = fbemitter
 
 export class Emitter {
-	protected emitter: EventEmitter
+	protected emitter: EventEmitterType
 	protected eventQueues: { [k: string]: AnyFunction[] } = {}
 	protected listenAlls: AnyFunction[] = []
 	protected listenMisses: AnyFunction[] = []

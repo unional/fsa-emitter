@@ -1,8 +1,8 @@
 import t from 'node:assert'
 import { AssertOrder } from 'assertron'
-import type { Emitter } from './Emitter'
+import type { Emitter } from './Emitter.js'
 
-import { Command, createEvent, TestEmitter } from './index'
+import { Command, createEvent, TestEmitter } from './index.js'
 
 test('Command provides emitter to subclass', () => {
 	const event = createEvent('event')

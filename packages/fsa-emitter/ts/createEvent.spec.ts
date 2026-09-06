@@ -1,7 +1,7 @@
 import t from 'node:assert'
 import { isError, isFSA } from 'flux-standard-action'
 
-import { createEvent, createScopedCreateEvent } from './index'
+import { createEvent, createScopedCreateEvent } from './index.js'
 
 test('empty eventCreator creates FSA compliant action', () => {
 	const beep = createEvent('beep')
